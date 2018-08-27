@@ -1,0 +1,14 @@
+E:\users\tanz01\DesignPattern\DapperMvc\BaseEnvironment\bin\Debug\BaseEnvironment.dll
+E:\users\tanz01\DesignPattern\DapperMvc\BaseEnvironment\bin\Debug\BaseEnvironment.pdb
+E:\users\tanz01\DesignPattern\DapperMvc\BaseEnvironment\obj\Debug\BaseEnvironment.dll
+E:\users\tanz01\DesignPattern\DapperMvc\BaseEnvironment\obj\Debug\BaseEnvironment.pdb
+D:\users\tanz01\DesignPattern\DapperMvc\BaseEnvironment\bin\Debug\BaseEnvironment.dll
+D:\users\tanz01\DesignPattern\DapperMvc\BaseEnvironment\bin\Debug\BaseEnvironment.pdb
+D:\users\tanz01\DesignPattern\DapperMvc\BaseEnvironment\obj\Debug\BaseEnvironment.csprojResolveAssemblyReference.cache
+D:\users\tanz01\DesignPattern\DapperMvc\BaseEnvironment\obj\Debug\BaseEnvironment.dll
+D:\users\tanz01\DesignPattern\DapperMvc\BaseEnvironment\obj\Debug\BaseEnvironment.pdb
+D:\users\tanz01\DesignPattern\Project\Work6\DapperMvc\BaseEnvironment\bin\Debug\BaseEnvironment.dll
+D:\users\tanz01\DesignPattern\Project\Work6\DapperMvc\BaseEnvironment\bin\Debug\BaseEnvironment.pdb
+D:\users\tanz01\DesignPattern\Project\Work6\DapperMvc\BaseEnvironment\obj\Debug\BaseEnvironment.csprojResolveAssemblyReference.cache
+D:\users\tanz01\DesignPattern\Project\Work6\DapperMvc\BaseEnvironment\obj\Debug\BaseEnvironment.dll
+D:\users\tanz01\DesignPattern\Project\Work6\DapperMvc\BaseEnvironment\obj\Debug\BaseEnvironment.pdb

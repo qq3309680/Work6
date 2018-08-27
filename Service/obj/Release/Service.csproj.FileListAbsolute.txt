@@ -1,0 +1,15 @@
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\Service.dll
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\Service.pdb
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\BaseEnvironment.dll
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\CommonTool.dll
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\Domain.dll
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\IService.dll
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\Dapper.dll
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\BaseEnvironment.pdb
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\CommonTool.pdb
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\Domain.pdb
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\IService.pdb
+E:\users\tanz01\DesignPattern\DapperMVC\Service\bin\Release\Dapper.xml
+E:\users\tanz01\DesignPattern\DapperMVC\Service\obj\Release\Service.csprojResolveAssemblyReference.cache
+E:\users\tanz01\DesignPattern\DapperMVC\Service\obj\Release\Service.dll
+E:\users\tanz01\DesignPattern\DapperMVC\Service\obj\Release\Service.pdb

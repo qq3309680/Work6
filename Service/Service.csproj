@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4EF3FCAF-099A-4520-B565-F9E7B7B4677E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Service</RootNamespace>
+    <AssemblyName>Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminMenuService.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="LogisticsInfoService.cs" />
+    <Compile Include="PrimaryKeyTestService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransportOrdersService.cs" />
+    <Compile Include="TransportUsersService.cs" />
+    <Compile Include="UsersService.cs" />
+    <Compile Include="ZD_SyncTaskConfigService.cs" />
+    <Compile Include="OT_WorkflowTemplateDraftService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BaseEnvironment\BaseEnvironment.csproj">
+      <Project>{f7e5f28b-b147-4fb2-ace8-daa8f48a9ea0}</Project>
+      <Name>BaseEnvironment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonTool\CommonTool.csproj">
+      <Project>{96effe97-b1e2-4dfa-90ff-5741a29bb8d9}</Project>
+      <Name>CommonTool</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{77db2681-c0ee-4453-884a-abbc085aa63a}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IService\IService.csproj">
+      <Project>{1446d620-a0a2-4e3a-9943-ebc5a3e0434c}</Project>
+      <Name>IService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

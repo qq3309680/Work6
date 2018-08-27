@@ -1,0 +1,10 @@
+E:\users\tanz01\DesignPattern\DapperMVC\CommonTool\bin\Release\CommonTool.dll
+E:\users\tanz01\DesignPattern\DapperMVC\CommonTool\bin\Release\CommonTool.pdb
+E:\users\tanz01\DesignPattern\DapperMVC\CommonTool\bin\Release\BaseEnvironment.dll
+E:\users\tanz01\DesignPattern\DapperMVC\CommonTool\bin\Release\Dapper.dll
+E:\users\tanz01\DesignPattern\DapperMVC\CommonTool\bin\Release\Newtonsoft.Json.dll
+E:\users\tanz01\DesignPattern\DapperMVC\CommonTool\bin\Release\BaseEnvironment.pdb
+E:\users\tanz01\DesignPattern\DapperMVC\CommonTool\bin\Release\Dapper.xml
+E:\users\tanz01\DesignPattern\DapperMVC\CommonTool\obj\Release\CommonTool.csprojResolveAssemblyReference.cache
+E:\users\tanz01\DesignPattern\DapperMVC\CommonTool\obj\Release\CommonTool.dll
+E:\users\tanz01\DesignPattern\DapperMVC\CommonTool\obj\Release\CommonTool.pdb

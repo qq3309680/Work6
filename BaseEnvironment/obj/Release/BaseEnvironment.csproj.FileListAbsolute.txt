@@ -1,0 +1,5 @@
+E:\users\tanz01\DesignPattern\DapperMVC\BaseEnvironment\bin\Release\BaseEnvironment.dll
+E:\users\tanz01\DesignPattern\DapperMVC\BaseEnvironment\bin\Release\BaseEnvironment.pdb
+E:\users\tanz01\DesignPattern\DapperMVC\BaseEnvironment\obj\Release\BaseEnvironment.csprojResolveAssemblyReference.cache
+E:\users\tanz01\DesignPattern\DapperMVC\BaseEnvironment\obj\Release\BaseEnvironment.dll
+E:\users\tanz01\DesignPattern\DapperMVC\BaseEnvironment\obj\Release\BaseEnvironment.pdb

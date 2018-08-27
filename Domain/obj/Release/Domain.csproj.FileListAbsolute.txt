@@ -1,0 +1,5 @@
+E:\users\tanz01\DesignPattern\DapperMVC\Domain\bin\Release\Domain.dll
+E:\users\tanz01\DesignPattern\DapperMVC\Domain\bin\Release\Domain.pdb
+E:\users\tanz01\DesignPattern\DapperMVC\Domain\obj\Release\Domain.csprojResolveAssemblyReference.cache
+E:\users\tanz01\DesignPattern\DapperMVC\Domain\obj\Release\Domain.dll
+E:\users\tanz01\DesignPattern\DapperMVC\Domain\obj\Release\Domain.pdb
