@@ -1,0 +1,61 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LigerUITest</title>
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <script src="~/Contents/LigerUI/lib/jquery/jquery-1.9.0.min.js"></script>
+    <script src="~/Contents/LigerUI/lib/ligerUI/js/ligerui.all.js?v=1.1"></script>
+    <script type="text/javascript">
+        $(function () {
+            //创建表单结构 
+            $("#form").ligerForm({
+                inputWidth: 170, labelWidth: 90, space: 40,
+                fields: [
+                { display: "日期 ", name: "AddTime", newline: true, type: "date", showTime: true, format: "yyyy-MM-dd hh:mm:ss", validate: { required: true } }
+                ]
+            });
+
+            $(document).on("click", "#submit", function () {
+                var form = liger.get("form");
+                var griddata = form.getData();
+                console.dir(griddata);
+
+            });
+        });
+    </script>
+    <style type="text/css">
+        body {
+            padding: 5px;
+            margin: 0;
+            padding-bottom: 15px;
+        }
+
+        #layout1 {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .l-page-top {
+            height: 80px;
+            background: #f8f8f8;
+            margin-bottom: 3px;
+        }
+
+        h4 {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="form">
+    </div>
+    @*<div class="liger-button" id="submit" data-width="150">保存</div>*@
+</body>
+</html>

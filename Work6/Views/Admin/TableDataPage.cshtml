@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TableDataPage</title>
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" id="mylink" />
+    <script src="~/Contents/LigerUI/lib/jquery/jquery-1.9.0.min.js"></script>
+    <script src="~/Contents/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
+    <script src="~/Contents/underscore.js"></script>
+    <script src="~/Contents/ExtentScript.js?v=1.8"></script>
+    <script>
+
+        //ligerui皮肤库
+        var skin_links = {
+            "aqua": "/Contents/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css",
+            "gray": "/Contents/LigerUI/lib/ligerUI/skins/Gray/css/all.css",
+            "silvery": "/Contents/LigerUI/lib/ligerUI/skins/Silvery/css/style.css",
+            "gray2014": "/Contents/LigerUI/lib/ligerUI/skins/gray2014/css/all.css"
+        };
+        $(function () {
+            //ligerui皮肤
+            var css = $("#mylink").get(0);
+            $('body').addClass("body-" + "gray");
+            $(css).attr("href", skin_links["gray"]);
+            var dialog = frameElement.dialog;
+            var Grid = $.CreateT2PageGrid("T2-Grid", $.GetT2GridColumns(dialog.get("myData").TableListObjectId), "/Admin/GetT2GridPageData", { "TableListObjectId": dialog.get("myData").TableListObjectId });
+            $(document).on("click", "#reloadBtn", function () {
+                Grid.reload();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="T2-Grid">
+    </div>
+    <div id="reloadBtn" class="liger-button" style="display: none"></div>
+</body>
+</html>

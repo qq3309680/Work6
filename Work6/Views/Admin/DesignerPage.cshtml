@@ -1,0 +1,192 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>设计页面</title>
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <script src="~/Contents/LigerUI/lib/jquery/jquery-1.9.0.min.js"></script>
+    <script src="~/Contents/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
+    <script src="~/Contents/underscore.js"></script>
+    <script>
+        $(function () {
+            $("#toolBar").ligerToolBar({
+                items: [
+                   {
+                       text: '保存', click: function (item) {
+                           alert(item.text);
+                       }, icon: 'add'
+                   },
+                           { line: true },
+                           { text: '检验', click: itemclick },
+                           { line: true },
+                           { text: '发布', click: itemclick },
+                           { line: true },
+                           { text: '存为图片', click: itemclick },
+                           { line: true },
+                           { text: '等高度', click: itemclick },
+                           { line: true },
+                           { text: '等大小', click: itemclick },
+                           { line: true },
+                           { text: '竖排等距', click: itemclick }
+                ]
+            });
+            function itemclick() {
+                alert(this);
+            }
+            $("#divDesigner").ligerLayout({ topHeight: 40 });
+
+        });
+    </script>
+    <style>
+        .active-model {
+            width: 96px;
+            height: 18px;
+            cursor: move;
+            background-origin: content-box;
+            float: left;
+            background-repeat: no-repeat;
+            padding: 6px;
+            border-style: solid;
+            border-width: 1px;
+            margin: 5px;
+            border-color: rgb(143, 170, 192);
+        }
+
+        .active-content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 10;
+            overflow: visible;
+        }
+
+        .active-model-logo {
+            margin-left: 0px;
+            background-size: contain;
+            float: left;
+            z-index: inherit;
+            width: 16px;
+            height: 16px;
+            font-family: LigerUIFont;
+            font-size: 16px;
+            color: rgb(73, 151, 214);
+            padding-top: 2px;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            border-image: initial;
+            background-repeat: no-repeat;
+        }
+
+            .active-model-logo:before {
+                content: "";
+                position: relative;
+                top: -2px;
+            }
+
+        .active-model-label {
+            line-height: 20px;
+            text-align: center;
+            position: relative;
+            z-index: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div id="toolBar" style="height: 30px;">
+        @*  <a href="javascript:void(0);" id="btnSave" data-icon="fa fa-save" runat="server" onclick="btnSave_Click(this)">保存</a>
+        <a href="javascript:void(0);" id="btnCheck" data-icon="fa fa-check" runat="server" onclick="btnCheck_Click(this)">检验</a>
+        <a href="javascript:void(0);" id="btnRelease" data-icon="fa fa-upload" runat="server" onclick="btnRelease_Click(this)">发布</a>
+        <a href="javascript:void(0);" id="btnImage" data-icon="fa fa-picture-o" onclick="btnImage_Click(this)">存为图片</a>
+        <a href="javascript:void(0);" id="btnHigth" data-icon="fa icon-denggaodu" runat="server" onclick="btnHigth_Click(this)">等高度</a>
+        <a href="javascript:void(0);" id="btnWidth" data-icon="fa icon-dengkuandu" runat="server" onclick="btnWidth_Click(this)">等大小</a>
+        <a href="javascript:void(0);" id="btnSize" data-icon="fa icon-dengdaxiao" runat="server" onclick="btnSize_Click(this)">竖排等距</a>
+        <a href="javascript:void(0);" id="btnVertical" data-icon="fa icon-shupaidengjianju" runat="server" onclick="btnVertical_Click(this)">横排等距</a>*@
+
+    </div>
+    <div id="divDesigner">
+        <div position="top">
+            <div class="active-model">
+                <div class="active-content">
+                    <div class="active-model-logo">
+                    </div>
+                    <div class="active-model-label">
+                        手工
+                    </div>
+                </div>
+            </div>
+            <div class="active-model">
+                <div class="active-content">
+                    <div class="active-model-logo">
+                    </div>
+                    <div class="active-model-label">
+                        审批
+                    </div>
+                </div>
+            </div>
+            <div class="active-model">
+                <div class="active-content">
+                    <div class="active-model-logo">
+                    </div>
+                    <div class="active-model-label">
+                        传阅
+                    </div>
+                </div>
+            </div>
+            <div class="active-model">
+                <div class="active-content">
+                    <div class="active-model-logo">
+                    </div>
+                    <div class="active-model-label">
+                        等待
+                    </div>
+                </div>
+            </div>
+            <div class="active-model">
+                <div class="active-content">
+                    <div class="active-model-logo">
+                    </div>
+                    <div class="active-model-label">
+                        消息
+                    </div>
+                </div>
+            </div>
+            <div class="active-model">
+                <div class="active-content">
+                    <div class="active-model-logo">
+                    </div>
+                    <div class="active-model-label">
+                        连接点
+                    </div>
+                </div>
+            </div>
+            <div class="active-model">
+                <div class="active-content">
+                    <div class="active-model-logo">
+                    </div>
+                    <div class="active-model-label">
+                        业务动作
+                    </div>
+                </div>
+            </div>
+            <div class="active-model">
+                <div class="active-content">
+                    <div class="active-model-logo">
+                    </div>
+                    <div class="active-model-label">
+                        子流程
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div position="center">
+        </div>
+    </div>
+</body>
+</html>

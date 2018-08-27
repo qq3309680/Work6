@@ -1,0 +1,114 @@
+.left_Div_Block {
+    padding: 5px;
+}
+
+    .left_Div_Block select {
+        width: 100%;
+    }
+
+.tree_block {
+    margin: 0;
+    padding: 0;
+}
+
+    .tree_block li {
+        height: 24px;
+        line-height: 24px;
+        margin: 1px;
+    }
+
+.tree_block_children {
+    padding-left: 20px;
+}
+
+.tableList input[type="text"], .tableList select {
+    width: 95%;
+}
+
+.tableList .tableLeft {
+    width: auto;
+    padding-left: 0;
+}
+
+.RragPlace {
+    background-color: #bbd0d4;
+    min-height: 50px;
+}
+
+    .RragPlace div {
+        min-width: 80px;
+        display: inline-block;
+        padding: 4px 10px;
+        line-height: 100%;
+        margin: 5px;
+        background-color: #eee;
+        border: solid 1px #eee;
+        border-radius: 10px;
+    }
+
+    .RragPlace a {
+        text-decoration: none;
+    }
+
+        .RragPlace a span {
+            margin-right: 2px;
+        }
+
+.CrossSettingTable {
+    width: 100%;
+}
+
+    .CrossSettingTable thead {
+        background: #39f;
+        color: #fff;
+    }
+
+
+
+    .CrossSettingTable tr {
+        height: 30px;
+        word-break: break-all;
+    }
+
+    .CrossSettingTable td {
+        border: 1px solid #A3C0E8;
+        border-right: none;
+        min-width: 80px;
+        padding-left: 5px;
+    }
+
+    .CrossSettingTable thead tr td {
+        text-align: center;
+    }
+
+.l-layout-content {
+    overflow: auto;
+}
+
+.chartTypeToolBar {
+    height: 30px;
+    line-height: 30px;
+}
+
+    .chartTypeToolBar a {
+        margin-left: 10px;
+        text-decoration: none;
+    }
+
+.l-layout-right {
+    overflow: auto;
+}
+
+.msgprint {
+    height: 30px;
+    border: 1px solid #a3c5e5;
+    color: red;
+    background: url(Images/hint.gif) no-repeat 10px center #e9f2fc;
+    line-height: 30px;
+    padding-left: 30px;
+    margin-bottom: 5px;
+}
+
+.l-text {
+    height: 30px;
+}

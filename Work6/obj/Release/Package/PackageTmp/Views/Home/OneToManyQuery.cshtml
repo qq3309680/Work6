@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OneToManyQuery</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <td>名称</td>
+                <td>手机</td>
+                <td>Email</td>
+                <td>购买的产品</td>
+            </tr>
+            @foreach (var item in (List<Domain.Customers>)ViewData["Result"])
+            {
+                <tr>
+                    <td>@item.CustomerName</td>
+                    <td>@item.Mobile</td>
+                    <td>@item.Email</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>名称</td>
+                                <td>描述</td>
+                            </tr>
+                            @foreach (var itemPro in item.Products)
+                            {
+                                <tr>
+                                    <td>
+                                        @itemPro.ProductName
+                                    </td>
+                                    <td>
+                                        @itemPro.ProductDesc
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </td>
+                </tr>    
+            }
+        </table>
+    </div>
+</body>
+</html>

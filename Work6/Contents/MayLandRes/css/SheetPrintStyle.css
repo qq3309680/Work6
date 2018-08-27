@@ -1,0 +1,151 @@
+﻿body {
+    background-color:white;
+}
+.divContent{
+    width:794px;
+   
+}
+
+
+.tablePrintStyle {
+    border-collapse: collapse;
+    width: 794px;
+    padding-left: 3px;
+    line-height:25px;
+    border-bottom-color:#000;
+}
+
+
+
+/**************************************/
+.tdPrintList {
+    border-collapse:collapse;
+    border-right: 1px solid #000000;padding-left:0px;
+    border-left: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000; 
+}
+.tdPrintList>span>div>table {
+             border:0px solid;
+}
+
+.tdPrintList>span>div>table  {
+    border-collapse:collapse;
+    border-right: 0px solid #000000;
+    border-left: 0px solid #000000;
+    border-bottom: 0px solid #000000;
+    border-top: 0px solid #000000; 
+}
+.tdPrintList>span>div>table>tbody>tr {
+        border-collapse:collapse;
+    border-right: 0px solid #000000;
+    border-left: 0px solid #000000;
+    border-bottom: 0px solid #000000;
+    border-top: 0px solid #000000; 
+}
+
+.tdPrintList>span>div>table>tbody>tr>th{
+     height: 26px;
+    font-size: 13px;
+    border-collapse:collapse;
+    border-right: 1px solid #000000;padding-left:5px;
+    border-left: 0px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 0px solid #000000; 
+}
+
+.tdPrintList>span>div>table>tbody>tr>td {
+    height: 26px;
+    font-size: 13px;
+    border-collapse:collapse;
+    border-right: 1px solid #000000;padding-left:5px;
+    border-left: 0px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 0px solid #000000; 
+    word-break:break-all; /*支持IE，chrome，FF不支持*/
+    word-wrap:break-word;/*支持IE，chrome，FF*/ 
+}
+
+.tdPrintList>span>div>table>tbody>tr>td:last-child {
+    border-collapse:collapse;
+    border-right: 0px solid #000000;
+    border-left: 0px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 0px solid #000000; 
+    word-break:break-all; /*支持IE，chrome，FF不支持*/
+    word-wrap:break-word;/*支持IE，chrome，FF*/ 
+}
+.tdPrintList>span>div>table>tbody>tr>th:last-child {
+    border-collapse:collapse;
+    border-right: 0px solid #000000;
+    border-left: 0px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 0px solid #000000; 
+    word-break:break-all; /*支持IE，chrome，FF不支持*/
+    word-wrap:break-word;/*支持IE，chrome，FF*/ 
+}
+
+/****************************************/
+
+.tdPrintList>span>div>table {
+   border:0px solid;
+}
+
+.tdPrintList>div>table  {
+    border-collapse:collapse;
+    border-right: 0px solid #000000;
+    border-left: 0px solid #000000;
+    border-bottom: 0px solid #000000;
+    border-top: 0px solid #000000; 
+}
+.tdPrintList>div>table>tbody>tr {
+        border-collapse:collapse;
+    border-right: 0px solid #000000;
+    border-left: 0px solid #000000;
+    border-bottom: 0px solid #000000;
+    border-top: 0px solid #000000; 
+}
+
+.tdPrintList>div>table>tbody>tr>th{
+     height: 26px;
+    font-size: 13px;
+    border-collapse:collapse;
+    border-right: 1px solid #000000;padding-left:5px;
+    border-left: 0px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 0px solid #000000; 
+}
+
+.tdPrintList>div>table>tbody>tr>td {
+    height: 26px;
+    font-size: 13px;
+    border-collapse:collapse;
+    border-right: 1px solid #000000;padding-left:5px;
+    border-left: 0px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 0px solid #000000; 
+    word-break:break-all; /*支持IE，chrome，FF不支持*/
+    word-wrap:break-word;/*支持IE，chrome，FF*/ 
+}
+
+.tdPrintList>div>table>tbody>tr>td:last-child {
+    border-collapse:collapse;
+    border-right: 0px solid #000000;
+    border-left: 0px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 0px solid #000000; 
+}
+.tdPrintList>div>table>tbody>tr>th:last-child {
+    border-collapse:collapse;
+    border-right: 0px solid #000000;
+    border-left: 0px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 0px solid #000000; 
+}
+
+/***********************************/
+
+.tdBordeTopNone{
+    border-collapse:collapse; 
+    border-top: 0px solid #000000; 
+}

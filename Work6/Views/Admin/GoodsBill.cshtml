@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GoodsBill</title>
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" />
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/Gray/css/all.css" rel="stylesheet" />
+    <script src="~/Contents/LigerUI/lib/jquery/jquery-1.9.0.min.js"></script>
+    <script src="~/Contents/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
+    <script src="~/Contents/underscore.js"></script>
+    <script>
+        $(function () {
+            $("#goodsGrid").ligerGrid({
+                //title: '通用表单展示',
+                columns: [
+                { display: '主键', name: 'ObjectId', align: 'left', width: 120, hide: 'true' },
+                { display: '账单名称', name: 'Name', minWidth: 60 },
+                { display: '商品名称', name: 'GoodsName', minWidth: 140 },
+                { display: '订货日期', name: 'OrderDate', minWidth: 60 },
+                { display: '购买人', name: 'PurchaseMan', width: 50, align: 'left' },
+                { display: '备注', name: 'Remark', minWidth: 140 },
+                { display: '账单总金额', name: 'BillAmount', minWidth: 140 },
+                { display: '已付款金额', name: 'PaidAmount', minWidth: 140 },
+                { display: '我的进价', name: 'MyBid', minWidth: 140 },
+                { display: '发货日期', name: 'DeliveryDate', minWidth: 60 },
+                { display: '付款情况', name: 'PaymentSituation', minWidth: 140 },
+                { display: '订单状态', name: 'OrderState', minWidth: 140 },
+                { display: '利润', name: 'Profit', minWidth: 140 },
+                {
+                    display: '操作', isSort: false, width: 50, render: function (rowdata, rowindex, value) {
+                        var h = "";
+                        h += "<a href=''>保存</a> ";
+                        return h;
+                    }
+                }
+
+                ],
+
+                //url: "/Admin/GetGridData",
+                //parms: { "TableName": "AdminMenu" },
+                data: {},
+                usePager: false,
+                rownumbers: true,
+                herght: '100%',
+                toolbar: {
+                    items: [
+                  { text: '增加', click: itemclick, icon: 'add' },
+                  { line: true },
+                  { text: '修改', click: itemclick, icon: 'modify' },
+                  { line: true },
+                  { text: '删除', click: itemclick, icon: 'delete' }
+                    ]
+                }
+
+            });
+
+            function itemclick() {
+                console.dir(this);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="goodsGrid">
+    </div>
+</body>
+</html>

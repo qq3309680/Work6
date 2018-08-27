@@ -1,0 +1,90 @@
+﻿  /*new*/
+    .ne-view .toolpanel, .topbar {
+        padding: 8px;
+        position: relative;
+        border-bottom: 1px solid #CACACA;
+        background: #F1F1F1 none;
+        background: none, -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#E5E5E5));
+        background: none, -webkit-linear-gradient(#f8f8f8, #E5E5E5);
+        background: none, -moz-linear-gradient(#efefef, #E5E5E5);
+        background: none, -o-linear-gradient(top, #f8f8f8, #E5E5E5);
+        background: none, -khtml-gradient(linear, left top, left bottom, from(#f8f8f8), to(#E5E5E5));
+        background: -ms-linear-gradient(top, #f8f8f8, #E5E5E5);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8f8f8', endColorstr='#E5E5E5',GradientType=0 );
+    }
+
+    .ne-btn-blue:active, .ne-btn-add:active {
+        background: -moz-linear-gradient(top, #2b6699, #4999bb);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#2b6699), to(#4999bb));
+        background: -o-linear-gradient(top, #2b6699, #4999bb);
+        background: -ms-linear-gradient(top, #2b6699 0%,#4999bb 100%);
+        background: linear-gradient(top, #2b6699, #4999bb);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2b6699', endColorstr='#4999bb');
+    }
+
+    .ne-btn-blue:hover, .ne-btn-add:hover {
+        background: #3286b4;
+        color: #fff;
+    }
+
+    .ne-btn:active {
+        background: #fbfbfb;
+        background: -moz-linear-gradient(top, #e8e8e8, #fbfbfb);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#e8e8e8), to(#fbfbfb));
+        background: -o-linear-gradient(top, #e8e8e8, #fbfbfb);
+        background: -ms-linear-gradient(top, #e8e8e8 0%,#fbfbfb 100%);
+        background: linear-gradient(top, #e8e8e8, #fbfbfb);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e8e8e8', endColorstr='#fbfbfb');
+    }
+
+    .ne-btn:hover {
+        filter: progid:DXImageTransform.Microsoft.Gradient(enabled=false);
+        background: #f4f5f6;
+        color: #555;
+        text-decoration: underline;
+    }
+
+    .ne-btn {
+        display: inline-block;
+        margin: 0;
+        margin-right: 6px;
+        padding: 0 8px;
+        height: 24px;
+        line-height: 24px;
+        font-size: 12px;
+        border: 1px solid #c1c1c1;
+        border-radius: 2px;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+        background: #fff;
+        background: -moz-linear-gradient(top, #fff, #f4f5f6);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#f4f5f6));
+        background: -o-linear-gradient(top, #fff, #f4f5f6);
+        background: -ms-linear-gradient(top, #fff 0%,#f4f5f6 100%);
+        background: linear-gradient(top, #fff, #f4f5f6);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f4f5f6');
+        color: #555;
+        vertical-align: middle;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .ne-btn-blue, .ne-btn-add {
+        border: 1px solid #3279a0;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+        background: #3377aa;
+        background: -moz-linear-gradient(top, #4999bb, #3377aa);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#4999bb), to(#3377aa));
+        background: -o-linear-gradient(top, #4999bb, #3377aa);
+        background: -ms-linear-gradient(top, #4999bb 0%,#3377aa 100%);
+        background: linear-gradient(top, #4999bb, #3377aa);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4999bb', endColorstr='#3377aa');
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 0 2px 2px rgba(0,0,0,0.22);
+    }
+    /*new*/
+
+    .center {
+        text-align: center;
+        vertical-align: central;
+    }

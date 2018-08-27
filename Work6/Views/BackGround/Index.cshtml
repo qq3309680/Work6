@@ -1,0 +1,450 @@
+﻿@{
+    Layout = "~/Views/Layout/BackGroundLayout.cshtml";
+    ViewBag.Title = "我的主页";
+}
+
+<script>
+
+
+    $(function () {
+        //响应式控制宽度,高度
+        $("#header").width($(window).width() - 70);
+        $("#maincontent").width($(window).width() - 70);
+        $("#maincontent").height($(window).height() - 50);
+        $(window).resize(function () {
+            $("#header").width($(window).width() - 70);
+            $("#maincontent").width($(window).width() - 70);
+            $("#maincontent").height($(window).height() - 50);
+        });
+        //右边菜单样式控制
+        $(".menuitem").hover(function () {
+            $(this).addClass("menuitem-over");
+            $(this).find(".sub").css("display", "block");
+        }, function () {
+            $(this).removeClass("menuitem-over");
+            $(this).find(".sub").css("display", "none");
+        });
+        //tab切换页签
+        navtab = $("#navtab1").ligerGetTabManager();
+        //菜单选择
+
+        $(document).on("click", ".menulink", function () {
+
+            var tabid = $(this).attr("tabid");
+            var title = $(this).attr("title");
+            var url = $(this).attr("data-url");
+            if (navtab.isTabItemExist(tabid)) {
+                navtab.selectTabItem(tabid);
+            } else {
+                navtab.addTabItem({ url: url, tabid: tabid });
+                navtab.setHeight("100%");
+                navtab.setTabItemTitle(tabid, title);
+            }
+
+
+        });
+    });
+
+
+</script>
+<style>
+    /*右边导航*/
+    #sidebar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0; /*top和bottom一起使用，这是很反常规的用法，可以强制定义盒模型的区域*/
+        width: 70px;
+        background-color: #4a8bc2;
+    }
+
+    #mainmenu {
+        margin-top: 40px;
+    }
+
+    .sidemenu .menuitem {
+        position: relative;
+        cursor: pointer;
+        list-style: none;
+        margin-bottom: 1px;
+        zoom: 1;
+        float: left;
+        width: 100%;
+        border: none;
+    }
+
+    .sidemenu .menuitem-over {
+        background-color: #55B1D4;
+    }
+
+    .sidemenu .icon {
+        position: relative;
+        opacity: 1;
+        display: block;
+        height: 35px;
+        width: 35px;
+        margin: 12px;
+        margin-bottom: 6px;
+        margin-left: 16px;
+        background: none;
+    }
+
+    .sidemenu .name {
+        display: block;
+        font-size: 12px;
+        text-align: center;
+        color: #fff;
+        font-family: "微软雅黑";
+        border: none;
+        line-height: 22px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .sidemenu .sub {
+        position: absolute;
+        left: 70px;
+        width: 130px;
+        z-index: 9999;
+        background: #f8f8f8;
+        border: 1px solid #ccd1d5;
+        border-width: 0 1px 1px 0;
+        border-top: 3px solid #329EC8;
+        box-shadow: 3px 3px 10px rgba(0,0,0,.3);
+    }
+
+        .sidemenu .sub .group {
+            width: 150px;
+            float: left;
+            margin-top: 5px;
+        }
+
+            .sidemenu .sub .group h3 {
+                margin: 0;
+                margin-left: 15px;
+                line-height: 22px;
+                font-size: 12px;
+                color: #333;
+                font-weight: bold;
+            }
+
+    .sidemenu .sub-nav {
+        padding: 5px 0 5px;
+        line-height: 24px;
+    }
+
+        .sidemenu .sub-nav a {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding-left: 15px;
+            display: block;
+            color: #888;
+            zoom: 1;
+            text-decoration: none;
+        }
+
+            .sidemenu .sub-nav a:hover {
+                background-color: #8FD2EC;
+                color: #fff;
+            }
+
+    .sidemenu .sub .group-last {
+        border: none;
+    }
+    /*右边导航*/
+    /*头部*/
+    #header {
+        position: absolute;
+        left: 70px;
+        top: 0;
+        height: 50px;
+        background: white;
+    }
+
+        #header h4 {
+            font-size: 22px;
+            text-shadow: 0 0 1px rgba(0,0,0,0.2);
+            max-width: 360px;
+            float: left;
+            overflow: hidden;
+            font-weight: bold;
+            margin: 10px;
+            margin-left: 20px;
+            color: #333;
+        }
+
+    .right {
+        float: right;
+    }
+
+        .right a {
+            color: #333;
+            font-size: 13px;
+        }
+
+            .right a, .right a:hover {
+                text-shadow: none !important;
+            }
+
+                .right a:-webkit-any-link {
+                    cursor: auto;
+                    text-decoration: underline;
+                }
+    /*头部*/
+    /*内容部分*/
+    #maincontent {
+        position: absolute;
+        top: 50px;
+        left: 70px;
+    }
+
+        #maincontent .l-tab-links {
+            margin-top: 7px;
+        }
+
+    .l-tab-links {
+        background: none;
+        border: none;
+        position: relative;
+        /* margin: 0 18px -1px; */
+        margin-left: 18px;
+        margin-bottom: -1px;
+        height: 29px;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+        .l-tab-links ul {
+            padding: 2px 0 0 1px;
+            list-style: none;
+            width: 9999px;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            zoom: 1;
+        }
+
+        .l-tab-links li:first-child {
+            border-top-left-radius: 2px;
+        }
+
+        .l-tab-links li {
+            background: none;
+            border: none;
+            float: left;
+            margin: 0;
+            padding: 0;
+            display: inline;
+            margin-left: -1px;
+            height: 28px;
+            line-height: 28px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #dedede;
+        }
+
+            .l-tab-links li.l-selected {
+                height: 30px;
+                line-height: 30px;
+                top: -2px;
+                z-index: 10;
+                border: 1px solid #CCC;
+                border-bottom: 1px solid #f4f4f4;
+                z-index: 10;
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
+                background: #f4f4f4;
+            }
+
+            .l-tab-links li a {
+                display: block;
+                margin: 0 30px 0 10px;
+                text-decoration: none;
+                color: #aaa;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                -khtml-user-select: none;
+                user-select: none;
+            }
+
+    .l-tab-links-item-left, .l-tab-links-item-right {
+        display: none;
+    }
+
+    .l-tab-links-item-left, .l-tab-links-item-right {
+        display: none;
+    }
+
+    .l-tab-content {
+        margin: 0 auto;
+        padding: 0;
+        border-top: 1px solid #d6d6d6;
+        width: 100%;
+    }
+
+    /*内容部分*/
+</style>
+
+<div id="header">
+    <h4>管理系统</h4>
+    <div class="right" style="margin: 9px; width: 220px;">
+        <a href="/Designer/index" target="_blank" class="todesign">开发模式 </a>
+        <a href="javascript:void(0)" class="myinfo" style="margin-left: 5px;">我的资料</a> | 
+          <a href="javascript:void(0)" class="viewedit" style="margin-left: 5px;">编辑视图</a> | 
+           <a href="/home/LoginOut/?appid=db">退出</a>
+
+
+    </div>
+</div>
+<div id="sidebar">
+    @*右边菜单：最好只设置三级*@
+    <ul class="sidemenu" id="mainmenu">
+        @foreach (Work6.Models.Admin.ManagerPageMenuModel item in Model)
+        {
+            <li class="menuitem">
+                @*<img class="icon" src="@Server.MapPath(item.IconImg)">*@
+                <img class="icon" src="@item.IconImg">
+                <span class="name">@item.DisplayName</span>
+                <div class="sub" style="top: 0px; width: 304px; display: none;">
+                    @if (!item.IsLeaf)
+                    {
+                        foreach (var sonItem in item.SonMenuModel)
+                        {
+
+                       
+                        <div class="group group-first">
+                            <h3>@sonItem.DisplayName</h3>
+                            <ul class="sub-nav">
+                                @if (sonItem.IsLeaf)
+                                {
+                                    <li><a class="menulink" href="javascript:void(0)" data-url="@sonItem.Href" tabid="@sonItem.ObjectId" title="@sonItem.DisplayName">@sonItem.DisplayName</a></li>
+                                }
+                                else
+                                {
+                                    foreach (var threeLevelItem in sonItem.SonMenuModel)
+                                    {
+                                    <li><a class="menulink" href="javascript:void(0)" data-url="@threeLevelItem.Href" tabid="@threeLevelItem.ObjectId" title="@threeLevelItem.DisplayName">@threeLevelItem.DisplayName</a></li>
+                                    }
+                                }
+
+
+
+                            </ul>
+
+
+                        </div>
+                        
+
+
+                        }
+
+                    }
+
+
+
+
+                </div>
+            </li>
+        }
+
+        @*        <li class="menuitem">
+            <img class="icon" src="~/Contents/Img/02.Shop.png">
+            <span class="name">销售管理</span>
+            <div class="sub" style="top: 0px; width: 304px; display: none;">
+                <div class="group group-first">
+                    <h3>客户欠款</h3>
+                    <ul class="sub-nav">
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/Admin/AddAdminMenuPage" tabid="crm_repayment" title="客户还款 ">客户还款 </a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=v_arrears&amp;viewtype=list" tabid="v_arrears" title="客户总欠款">客户总欠款</a></li>
+                    </ul>
+                </div>
+                <div class="group group-last">
+                    <h3>销售</h3>
+                    <ul class="sub-nav">
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=sales_order&amp;viewtype=list" tabid="sales-order" title="销售单">销售单</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=sales_order&amp;viewtype=form&amp;viewindex=1" tabid="sales_order_form" title="新增销售单">新增销售单</a></li>
+                    </ul>
+                </div>
+            </div>
+       </li>
+        <li class="menuitem">
+            <img class="icon" src="~/Contents/Img/09.Handbag.png">
+            <span class="name">采购管理</span>
+            <div class="sub" style="top: 0px; width: 304px; display: none;">
+                <div class="group group-first">
+                    <h3>供应商欠款</h3>
+                    <ul class="sub-nav">
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=purchase_repayment&amp;viewtype=list" tabid="purchase_repayment" title="供应商还款 ">供应商还款 </a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=v_supplierarrears&amp;viewtype=list" tabid="v_supplierarrears" title="供应商总欠款">供应商总欠款</a></li>
+                    </ul>
+                </div>
+                <div class="group group-last">
+                    <h3>应付款</h3>
+                    <ul class="sub-nav">
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=purchase_order&amp;viewtype=list" tabid="purchase_order" title="采购管理">采购管理</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=purchase_order&amp;viewtype=form&amp;viewindex=1" tabid="purchase_order_form" title="新增采购单">新增采购单</a></li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+        <li class="menuitem">
+            <img class="icon" src="~/Contents/Img/14.News.png">
+            <span class="name">基础资料</span>
+            <div class="sub" style="top: 0px; display: none;">
+                <ul class="sub-nav">
+                    <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=res_productUnit&amp;viewtype=list&amp;viewname=" tabid="res_productUnit">单位管理</a></li>
+                    <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=crm_supplier&amp;viewtype=list" tabid="supplier">供应商管理</a></li>
+                    <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=res_product&amp;viewtype=list" tabid="product">产品管理</a></li>
+                    <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=crm_customer&amp;viewtype=list" tabid="customer">客户管理</a></li>
+                    <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=stock_warehouse&amp;viewtype=list" tabid="stock-warehouse">仓库管理</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="menuitem">
+            <img class="icon" src="~/Contents/Img/15.Pencil.png">
+            <span class="name">系统设置</span>
+            <div class="sub" style="top: 0px; width: 456px; display: none;">
+                <div class="group group-first">
+                    <h3>基础设置</h3>
+                    <ul class="sub-nav">
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=res_productType&amp;viewtype=list&amp;viewname=" tabid="res_productType" title="产品类型">产品类型</a></li>
+                    </ul>
+                </div>
+                <div class="group">
+                    <h3>权限设置</h3>
+                    <ul class="sub-nav">
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=core_funRightsRule&amp;viewtype=list" tabid="fun-rights" title="功能权限规则">功能权限规则</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=core_role&amp;viewtype=list" tabid="setting-role" title="角色">角色</a></li>
+                    </ul>
+                </div>
+                <div class="group group-last">
+                    <h3>系统设置</h3>
+                    <ul class="sub-nav">
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=core_reportTemplate&amp;viewtype=list" tabid="setting-report" title="报表模板">报表模板</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=core_printTemplate&amp;viewtype=list" tabid="setting-print" title="打印模板">打印模板</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=core_exportTemplate&amp;viewtype=list" tabid="setting-export" title="导出模板">导出模板</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=core_importTemplate&amp;viewtype=list&amp;viewname=" tabid="import" title="导入模板">导入模板</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=core_portal&amp;viewtype=list&amp;viewname=" tabid="portal" title="门户设置">门户设置</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=core_user&amp;viewtype=list" tabid="loginuser" title="登录账号管理">登录账号管理</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=core_autoCode&amp;viewtype=list" tabid="autocode" title="自动编码设置">自动编码设置</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/setting" tabid="sys-setting" title="系统配置">系统配置</a></li>
+                        <li><a class="menulink" href="javascript:void(0)" data-url="/web/main?model=core_menu&amp;viewtype=list" tabid="menu" title="菜单管理">菜单管理</a></li>
+                    </ul>
+                </div>
+            </div>
+        </li>*@
+    </ul>
+    @*右边菜单：最好只设置三级*@
+</div>
+<div id="maincontent">
+    <div id="navtab1" style="overflow: hidden;" class="liger-tab">
+        <div id="tab-layout1" tabid="home" title="我的主页" lselected="true">
+            <div id="maingrid2" position="center" style="margin: 10px; height: 300px;">我的主页</div>
+        </div>
+    </div>
+</div>
+

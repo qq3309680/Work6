@@ -1,0 +1,129 @@
+﻿@{
+    Layout = "~/Views/Layout/PageLayout.cshtml";
+    ViewBag.Title = "添加后台菜单";
+}
+<script>
+    $(function () {
+
+        //创建表单结构 
+        var menuForm = $("#form").ligerForm();
+        //是否根节点下拉框
+        var IsRootCombo = $("#IsRoot").ligerComboBox({
+            width: 300,
+            data: [
+                { text: '是', id: '1' },
+                { text: '否', id: '0' }
+            ],
+            selectBoxWidth: 297.5,
+            onSelected: function (value) {
+                if (value == 1) {
+                    ParentObjectIdCombo.setValue();
+                    ParentObjectIdCombo.setDisabled();
+                } else {
+                    ParentObjectIdCombo.setEnabled();
+                }
+            }
+        });
+        //父级菜单下拉框
+        var ParentObjectIdCombo = $("#ParentObjectId").ligerComboBox({
+            width: 300,
+            selectBoxWidth: 300,
+            selectBoxHeight: 200,
+            treeLeafOnly: false,
+            valueField: 'text',
+            valueField: 'id',
+            tree: {
+                url: '/Admin/GetAdminMenuList',
+                checkbox: false,
+                ajaxType: 'post'
+            }
+            //,
+            //onSelected: function (value) {
+            //    alert('选中事件:' + value);
+            //}
+        });
+
+        //保存事件
+        $(document).on('click', "#save", function () {
+            var menu = menuForm.getData();
+            //console.dir(menu);
+            //console.dir(ParentObjectIdCombo.getValue());
+            menu.IsRoot = IsRootCombo.getValue();
+            menu.ParentObjectId = ParentObjectIdCombo.getValue();
+            $.AJAXGetDataAsync("post", "/Admin/AddAdminMenu", menu, function (data) {
+                if (data.States) {
+                    alert(data.Message);
+                    window.parent.location.reload();
+                    window.parent.$.ligerui.get("AddAdminMenuDialog").close();
+                } else {
+                    alert(data.ErrorMessage);
+                }
+            });
+
+        });
+
+
+    });
+</script>
+<link href="~/Contents/Css/formCss.css" rel="stylesheet" />
+
+<div class="ne-view" style="overflow: hidden">
+    <div id="mainpanel" style="width: 90%; margin: 0 auto; margin-top: 10px; margin-bottom: 20px; border: 1px solid #c8c8dd; background: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);">
+        <div id="form">
+            <input type="hidden" id="ObjectId" name="ObjectId" value="" />
+            <input type="hidden" id="IsLeaf" name="IsLeaf" value="" />
+            <input type="hidden" id="Level" name="Level" value="" />
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="DisplayName">菜单名称: </label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" value="" id="DisplayName" name="DisplayName" style="width: 300px;" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="Href">链接: </label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" value="" id="Href" name="Href" style="width: 300px;" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="Sort">排列顺序: </label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" value="" id="Sort" name="Sort" style="width: 300px;" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="IsRoot">是否根节点: </label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" id="IsRoot" name="IsRoot" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="ParentObjectId">父级菜单: </label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" value="" id="ParentObjectId" name="ParentObjectId" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="DisplayName">图片链接: </label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" value="" id="IconImg" name="IconImg" style="width: 300px;" />
+                </div>
+            </div>
+        </div>
+        <div class="toolbar" style="margin: 10px;"><a class="ne-btn ne-btn-blue" id="save">保存</a></div>
+    </div>
+
+</div>
+

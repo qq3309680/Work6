@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JoinQuery</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <td>名称</td>
+                <td>描述</td>
+                <td>创建时间</td>
+                <td>所属人</td>
+                <td>所属人地址</td>
+            </tr>
+            @foreach (var item in (List<Domain.Product>)ViewData["Result"])
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.ProductDesc</td>
+                    <td>@item.CreateTime</td>
+                    <td>@item.UserOwner.UserName</td>
+                    <td>@item.UserOwner.Address</td>
+                </tr>    
+            }
+        </table>
+    </div>
+</body>
+</html>

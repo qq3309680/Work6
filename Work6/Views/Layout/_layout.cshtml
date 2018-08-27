@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Contents/WebPageCss/layout.css" rel="stylesheet" />
+    @*<link href="~/Contents/BootStrap/css/bootstrap.min.css" rel="stylesheet" />*@
+    <script src="~/Contents/BootStrap/js/jquery-1.11.1.min.js"></script>
+    @*<script src="~/Contents/BootStrap/js/bootstrap.min.js"></script>*@
+    <script>
+        $(function () {
+            $("#header_right_list_bar_div").hover(function () {
+                $("#header_right_list_bar_list").css("display", "block");
+            }
+            , function () {
+                $("#header_right_list_bar_list").css("display", "none");
+            });
+
+        });
+        //兼容火狐、IE8   
+        //显示遮罩层    
+        function showMask() {
+            $(".loading-div").show();
+            $(".loading-img-div").show();
+        }
+        //隐藏遮罩层  
+        function hideMask() {
+            $(".loading-div").hide();
+            $(".load-img-div").hide();
+        }
+    </script>
+</head>
+<body style="overflow: hidden">
+    <div id="container">
+        @RenderPage("_header.cshtml")
+        @RenderBody()
+    </div>
+    <div class="loading-div">
+    </div>
+    <div class="loading-img-div">
+        <img src="~/Contents/Img/LoadingImg/bigloading.gif" />
+        <span>加载中...</span>
+    </div>
+</body>
+</html>

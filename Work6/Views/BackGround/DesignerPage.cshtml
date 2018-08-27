@@ -1,0 +1,947 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DesignerPage</title>
+    <link href="~/Contents/Css/pixel-admin.min.css" rel="stylesheet" />
+    <link href="~/Contents/Css/ligerUI/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="~/Contents/Css/ligerUI/ligerui-icons.css" rel="stylesheet" />
+    <link href="~/Contents/Css/H3Default/H3-All.css" rel="stylesheet" />
+    <script src="~/Contents/Script/jquery.js"></script>
+    <script src="~/Contents/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
+    <script src="~/Contents/LigerUI/lib/ligerUI/js/plugins/ligerDrag.js"></script>
+    <script src="~/Contents/Script/H3AdminPlugins.js"></script>
+    <link href="~/Contents/Css/designer/css/designer.css" rel="stylesheet" />
+    <link href="~/Contents/Css/designer/css/property.css" rel="stylesheet" />
+    <script src="~/Contents/designer/Activity.js"></script>
+    <script src="~/Contents/designer/ActivityDrag.js"></script>
+    <script src="~/Contents/designer/ActivityModel.js"></script>
+    <script src="~/Contents/designer/Line.js"></script>
+    <script src="~/Contents/designer/misc.js"></script>
+    <script src="~/Contents/designer/Workflow.js"></script>
+    <script src="~/Contents/designer/WorkflowDocument.js"></script>
+    <script src="~/Contents/designer/loader.js"></script>
+    <script src="~/Contents/designer/DataItem.js"></script>
+    <script src="~/Contents/designer/Porperty.js"></script>
+    <script src="~/Contents/designer/ActivityEvent.js"></script>
+    <script src="~/Contents/designer/SubInstanceDataMap.js"></script>
+    <script src="~/Contents/designer/ContextMenu.js"></script>
+    <script src="~/Contents/designer/Package.js"></script>
+    <script src="~/Contents/designer/WorkflowTrace.js"></script>
+    <script src="~/Contents/designer/FormulaEditable.js"></script>
+    <link href="~/Contents/designer/chosen/chosen.css" rel="stylesheet" />
+    <script src="~/Contents/designer/chosen/chosen.jquery.min.js"></script>
+    <script>
+        //流程模板
+        WorkflowTemplate = @Html.Raw(ViewData["WorkflowTemplate"].ToString())
+        @*@Html.Raw("alert(1);")*@
+        $(function () {
+            $("#H3ToolBar").AspLinkToolBar({ IsFixed: false });
+        });
+        function btnSave_Click(obj) {
+            WorkflowDocument.SaveWorkflow();
+        }
+        function btnCheck_Click(obj) {
+            WorkflowDocument.FullValidateWorkflow();
+        }
+        function btnRelease_Click(obj) {
+            WorkflowDocument.PublishWorkflow();
+        }
+        function btnImage_Click(obj) {
+            WorkflowDocument.SaveAsImage();
+        }
+        function btnHigth_Click(obj) {
+            workflow.setSameStyle(WorkflowSettings.SameStyle.Height);
+        }
+        function btnWidth_Click(obj) {
+            workflow.setSameStyle(WorkflowSettings.SameStyle.Width);
+        }
+        function btnSize_Click(obj) {
+            workflow.setSameStyle(WorkflowSettings.SameStyle.Size);
+        }
+        function btnVertical_Click(obj) {
+            workflow.setSameStyle(WorkflowSettings.SameStyle.VerticalDistance);
+        }
+        function btnHorizontal_Click(obj) {
+            workflow.setSameStyle(WorkflowSettings.SameStyle.HorizontalDistance);
+        }
+        function btnUndo_Click(obj) {
+            TraceManager.Undo();
+        }
+        function btnRedo_Click(obj) {
+            TraceManager.Redo();
+        }
+
+        function CreateWorkflowDocument(workflowDocument) {
+            this.WorkflowDocument = workflowDocument;
+        }
+
+    </script>
+</head>
+<body>
+    <div id="H3ToolBar" style="height: 30px;">
+        <a href="javascript:void(0);" id="btnSave" data-icon="fa fa-save" runat="server" onclick="btnSave_Click(this)">保存</a>
+        <a href="javascript:void(0);" id="btnCheck" data-icon="fa fa-check" runat="server" onclick="btnCheck_Click(this)">检验</a>
+        <a href="javascript:void(0);" id="btnRelease" data-icon="fa fa-upload" runat="server" onclick="btnRelease_Click(this)">发布</a>
+        <a href="javascript:void(0);" id="btnImage" data-icon="fa fa-picture-o" onclick="btnImage_Click(this)">存为图片</a>
+        <a href="javascript:void(0);" id="btnHigth" data-icon="fa icon-denggaodu" runat="server" onclick="btnHigth_Click(this)">等高度</a>
+        <a href="javascript:void(0);" id="btnWidth" data-icon="fa icon-dengkuandu" runat="server" onclick="btnWidth_Click(this)">等宽度</a>
+        <a href="javascript:void(0);" id="btnSize" data-icon="fa icon-dengdaxiao" runat="server" onclick="btnSize_Click(this)">等大小</a>
+        <a href="javascript:void(0);" id="btnVertical" data-icon="fa icon-shupaidengjianju" runat="server" onclick="btnVertical_Click(this)">竖排等距</a>
+        <a href="javascript:void(0);" id="btnHorizontal" data-icon="fa icon-hengpaidengjianju" runat="server" onclick="btnHorizontal_Click(this)">横排等距</a>
+        <a href="javascript:void(0);" id="btnUndo" data-icon="fa fa-mail-reply" onclick="btnUndo_Click(this)" runat="server">撤销</a>
+        <a href="javascript:void(0);" id="btnRedo" data-icon="fa fa-mail-forward" onclick="btnRedo_Click(this)" runat="server">重做</a>
+    </div>
+    <div id="divDesigner">
+        <div position="top">
+            <div class="model_container"></div>
+        </div>
+        <div position="center" title="流程图设计" style="overflow: visible;">
+            <div class="workspace_container">
+                <div class="workspace" style="font-family: 'Microsoft YaHei'; color: blue; font-size: 13px;">
+                </div>
+            </div>
+            @* <div class="div-thumbnail">
+                <iframe id="frmThumbnail" name="frmThumbnail" src="WorkflowThumbnail"></iframe>
+                <div class="thumbnail-top"></div>
+            </div>*@
+        </div>
+        <div id="divPropertyContainer" style="overflow: auto" position="right" title="属性">
+            <table class="PropertyTable" style="overflow: auto">
+                @*<%--流程模板属性 Start--%>*@
+                <tr group="WorkflowBasic">
+                    <td group="WorkflowBasic"></td>
+                    <td colspan="3">一般设置
+                    </td>
+                </tr>
+                <tr group="WorkflowBasic" property="WorkflowCode">
+                    <td></td>
+                    <td>流程编码</td>
+                    <td colspan="2" style="width: 70%">
+                        <span></span></td>
+                </tr>
+                <tr group="WorkflowBasic" property="InstanceName">
+                    <td></td>
+                    <td>实例名称</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="200" style="width: 82%" />
+                        <input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="WorkflowBasic" property="Description">
+                    <td></td>
+                    <td>描述</td>
+                    <td colspan="2">
+                        <textarea id="Textarea2" rows="3"></textarea><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="WorkflowPlan">
+                    <td group="WorkflowPlan"></td>
+                    <td colspan="3">计划
+                    </td>
+                </tr>
+                <tr group="WorkflowPlan" property="PlanUsedTime">
+                    <td></td>
+                    <td>计划时长</td>
+                    <td colspan="2">
+                        <input type="text" class="TimeSpan" />
+                    </td>
+                </tr>
+                <tr group="WorkflowPlan" property="PlanRecurrences">
+                    <td></td>
+                    <td>重复次数</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="32" /></td>
+                </tr>
+                <tr group="WorkflowExtend" property="">
+                    <td group="WorkflowExtend" property=""></td>
+                    <td colspan="3">扩展属性
+                    </td>
+                </tr>
+                <tr group="WorkflowExtend" property="ShortText1">
+                    <td></td>
+                    <td>扩展属性1</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" /></td>
+                </tr>
+                <tr group="WorkflowExtend" property="ShortText2">
+                    <td></td>
+                    <td>扩展属性2</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="WorkflowExtend" property="ShortText3">
+                    <td></td>
+                    <td>扩展属性3</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="WorkflowExtend" property="ShortText4">
+                    <td></td>
+                    <td>扩展属性4</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" /></td>
+                </tr>
+                <tr group="WorkflowExtend" property="ShortText5">
+                    <td></td>
+                    <td>扩展属性5</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="WorkflowExtend" property="LongText6">
+                    <td></td>
+                    <td>扩展属性6</td>
+                    <td colspan="2">
+                        <textarea class="RichText" style="width: 82%"></textarea><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="WorkflowExtend" property="LongText7">
+                    <td></td>
+                    <td>扩展属性7</td>
+                    <td colspan="2">
+                        <textarea class="RichText" style="width: 82%"></textarea><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="WorkflowBizActions">
+                    <td group="WorkflowBizActions"></td>
+                    <td colspan="3">执行的动作
+                    </td>
+                </tr>
+                <tr group="WorkflowBizActions" property="OnCancelActions">
+                    <td></td>
+                    <td>取消时</td>
+                    <td colspan="2" style="width: 70%">
+                        <select class="biz-actions-list" multiple></select>
+                    </td>
+                </tr>
+                <tr group="WorkflowBizActions" property="OnStartActions">
+                    <td></td>
+                    <td>开始时</td>
+                    <td colspan="2">
+                        <select class="biz-actions-list" multiple></select>
+                    </td>
+                </tr>
+                <tr group="WorkflowBizActions" property="OnFinishActions">
+                    <td></td>
+                    <td>结束时</td>
+                    <td colspan="2">
+                        <select class="biz-actions-list" multiple></select>
+                    </td>
+                </tr>
+                @*   <%--流程模板属性 End--%>
+
+                <%--线条属性 Start--%>*@
+                <tr group="LineBasic">
+                    <td group="LineBasic"></td>
+                    <td colspan="3">一般设置
+                    </td>
+                </tr>
+                <tr group="LineBasic" property="DisplayName">
+                    <td></td>
+                    <td>显示名称</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="32" />
+                    </td>
+                </tr>
+                <tr group="LineBasic" property="UtilizeElse">
+                    <td></td>
+                    <td>使用Else</td>
+                    <td colspan="2">
+                        <input type="checkbox" />
+                    </td>
+                </tr>
+                <tr group="LineBasic" property="Formula">
+                    <td></td>
+                    <td>条件</td>
+                    <td colspan="2">
+                        <input type="text" class="FormulaEditable" formula-type="bool" />
+                    </td>
+                </tr>
+                @*<%--线条属性 End--%>
+
+                <%--活动属性 Start--%>*@
+                <tr group="ActivityBasic">
+                    <td group="ActivityBasic"></td>
+                    <td colspan="3">一般设置
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="ActivityCode">
+                    <td></td>
+                    <td>编码</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="32" /></td>
+                </tr>
+                <tr group="ActivityBasic" property="DisplayName">
+                    <td></td>
+                    <td>显示名称</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" />
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="SortKey">
+                    <td></td>
+                    <td>排序码</td>
+                    <td colspan="2">
+                        <input type="text" />
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="EntryCondition">
+                    <td></td>
+                    <td>前置条件</td>
+                    <td colspan="2">
+                        <asp:radiobuttonlist id="rblEntryCondition" repeatdirection="Horizontal" runat="server"></asp:radiobuttonlist>
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="WorkItemDisplayName">
+                    <td></td>
+                    <td>工作项名称</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" />
+                        <input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="SheetCode">
+                    <td></td>
+                    <td>任务表单</td>
+                    <td colspan="2">
+                        <select id="sltSheetCodes" runat="server"></select>
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="ApprovalDataItem">
+                    <td></td>
+                    <td>审批结果 </td>
+                    <td colspan="2">
+                        <asp:dropdownlist id="ddlApprovalDataItem" runat="server"></asp:dropdownlist>
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="CommentDataItem">
+                    <td></td>
+                    <td>意见数据</td>
+                    <td colspan="2">
+                        <asp:dropdownlist id="ddlCommentDataItem" runat="server"></asp:dropdownlist>
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="WaitCondition">
+                    <td></td>
+                    <td>检查条件</td>
+                    <td colspan="2">
+                        <input type="text" class="FormulaEditable" formula-type="bool" />
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="IntervalByMinute">
+                    <td></td>
+                    <td>检查间隔</td>
+                    <td colspan="2">
+                        <select>
+                            <option>不做轮询</option>
+                            <option>10分钟</option>
+                            <option>30分钟</option>
+                            <option>1小时</option>
+                            <option>6小时</option>
+                            <option>24小时</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="NotifyType">
+                    <td></td>
+                    <td>通知方式</td>
+                    <td colspan="2">
+                        <select id="sltNotifyTypes" runat="server">
+                        </select>
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="Receivers">
+                    <td></td>
+                    <td>接收人</td>
+                    <td colspan="2">
+                        <input type="text" class="FormulaEditable" formula-type="Participants" />
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="Title">
+                    <td></td>
+                    <td>消息标题</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="128" style="width: 82%" />
+                        <input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="Content">
+                    <td></td>
+                    <td>消息内容</td>
+                    <td colspan="2">
+                        <textarea id="Textarea6" rows="3" style="width: 82%"></textarea><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="BizActions">
+                    <td></td>
+                    <td></td>
+                    <td colspan="2">
+                        <select class="biz-actions-list" multiple></select>
+                    </td>
+                </tr>
+                @*    <%--子流程属性--%>*@
+                <tr group="ActivityBasic" property="WorkflowCode">
+                    <td></td>
+                    <td>业务动作</td>
+                    <td colspan="2">
+                        <sheetcontrols:workflowselector id="ws" containdraft="true" runat="server" />
+                        <input type="button" value="..." class="BizData" data-select-mode="replace" />
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="WorkflowVersion">
+                    <td></td>
+                    <td>模板编码</td>
+                    <td colspan="2">
+                        <input type="text" value="0" maxlength="5" /></td>
+                </tr>
+                <tr group="ActivityBasic" property="Sync">
+                    <td></td>
+                    <td>模板版本</td>
+                    <td colspan="2">
+                        <asp:radiobuttonlist id="ralSync" repeatdirection="Horizontal" runat="server"></asp:radiobuttonlist>
+                    </td>
+                </tr>
+                <tr group="ActivityBasic" property="FinishStartActivity">
+                    <td></td>
+                    <td>同步/异步</td>
+                    <td colspan="2">
+                        <input type="checkbox" />
+                    </td>
+                </tr>
+                @*<%--END--%>*@
+                <tr group="ActivityBasic" property="Summary">
+                    <td></td>
+                    <td>摘要</td>
+                    <td colspan="2">
+                        <textarea rows="3" style="width: 82%"></textarea>
+                        <input type="button" value="..." class="BizData" /></td>
+                </tr>
+                <tr group="Participants" property="">
+                    <td group="Participants" property=""></td>
+                    <td colspan="3">参与者
+                    </td>
+                </tr>
+                <tr group="Participants" property="Participants">
+                    <td></td>
+                    <td>参与者</td>
+                    <td colspan="2" style="width: 70%">
+                        <input type="text" class="FormulaEditable" formula-type="Participants" />
+                    </td>
+                </tr>
+                <tr group="Participants" property="ParticipateType">
+                    <td></td>
+                    <td>参与者类型</td>
+                    <td colspan="2">
+                        <asp:radiobuttonlist id="rblParticipantMode" repeatdirection="Horizontal" runat="server"></asp:radiobuttonlist>
+                    </td>
+                </tr>
+                <tr group="Participants" property="ParticipateMethod">
+                    <td></td>
+                    <td>参与方式</td>
+                    <td colspan="2">
+                        <asp:radiobuttonlist id="rblParticipateMethod" repeatdirection="Horizontal" runat="server"></asp:radiobuttonlist>
+                    </td>
+                </tr>
+                <tr group="Participants" property="FinishExit">
+                    <td></td>
+                    <td>完成出口</td>
+                    <td colspan="2">
+                        <input type="text" />
+                    </td>
+                </tr>
+                <tr group="Participants" property="ApproveExit">
+                    <td></td>
+                    <td>同意出口</td>
+                    <td colspan="2">
+                        <input type="text" />
+                    </td>
+                </tr>
+                <tr group="Participants" property="DisapproveExit">
+                    <td></td>
+                    <td>否决出口</td>
+                    <td colspan="2">
+                        <input type="text" value="1" />
+                    </td>
+                </tr>
+                <tr group="Participants" property="NoParPolicy">
+                    <td></td>
+                    <td>无参与者</td>
+                    <td colspan="2">
+                        <asp:dropdownlist id="ddlNoParPolicy" runat="server"></asp:dropdownlist>
+                    </td>
+                </tr>
+                <tr group="Participants" property="OriginatorParPolicy">
+                    <td></td>
+                    <td>是发起人</td>
+                    <td colspan="2">
+                        <asp:dropdownlist id="ddlOriginatorParPolicy" runat="server"></asp:dropdownlist>
+                    </td>
+                </tr>
+                <tr group="Participants" property="DupParPolicy">
+                    <td></td>
+                    <td>前一活动参与</td>
+                    <td colspan="2">
+                        <asp:dropdownlist id="ddlDupParPolicy" runat="server"></asp:dropdownlist>
+                    </td>
+                </tr>
+                <tr group="Participants" property="ParticipatedParPolicy">
+                    <td></td>
+                    <td>参与过流程</td>
+                    <td colspan="2">
+                        <asp:dropdownlist id="ddlParticipatedParPolicy" runat="server"></asp:dropdownlist>
+                    </td>
+                </tr>
+                <tr group="SubInstanceDataMaps">
+                    <td group="SubInstanceDataMaps"></td>
+                    <td colspan="3">数据权限
+                    </td>
+                </tr>
+                <tr group="SubInstanceDataMaps" property="DataMaps">
+                    <td></td>
+                    <td>数据映射</td>
+                    <td colspan="2" style="width: 60%">
+                        <ul class="SubInstanceDataMap-list"></ul>
+                    </td>
+                </tr>
+                <tr group="DataItem">
+                    <td group="DataItem"></td>
+                    <td colspan="3">数据权限
+                    </td>
+                </tr>
+                <tr group="DataItem" property="DataPermissions">
+                    <td></td>
+                    <td colspan="3">
+                        <table style="border-width: 0px; width: 100%">
+                            <tr style="line-height: 12px">
+                                <td></td>
+                                <td>数据项</td>
+                                <td style="text-align: center">
+                                    <input type="checkbox" /><br />
+                                    可见</td>
+                                <td style="text-align: center">
+                                    <input type="checkbox" /><br />
+
+                                    可写</td>
+                                <td style="text-align: center">
+                                    <input type="checkbox" /><br />
+                                    必填</td>
+                                <td style="text-align: center">
+                                    <input type="checkbox" /><br />
+                                    痕迹</td>
+                                <td style="text-align: center">
+                                    <input type="checkbox" /><br />
+                                    移动</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr group="Operation">
+                    <td group="Operation"></td>
+                    <td colspan="3">操作权限
+                    </td>
+                </tr>
+                <tr group="Operation" property="PermittedActions">
+                    <td></td>
+                    <td style="border-bottom: 1px solid #F0F0F0;">基本操作</td>
+                    <td style="border-bottom: 1px solid #F0F0F0;" colspan="2">
+                        <table style="border-width: 0px; width: 100%">
+                            <tr>
+                                <td colspan="2" permitted-action="Choose">
+                                    <input type="checkbox" /><label class="Action-Label">手工选择</label></td>
+                                <td colspan="2" permitted-action="Jump">
+                                    <input type="checkbox" /><label class="Action-Label">跳转</label></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: left" permitted-action="Forward">
+                                    <input type="checkbox" /><label class="Action-Label">转发</label></td>
+                                <td colspan="2" style="text-align: left" permitted-action="Retrieve">
+                                    <input type="checkbox" /><label class="Action-Label">取回</label></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: left" permitted-action="AdjustParticipant">
+                                    <input type="checkbox" /><label class="Action-Label">加签</label></td>
+
+                            </tr>
+                            <tr style="display: none;">
+                                <td colspan="2" style="text-align: left; display: none;" permitted-action="ViewInstanceState">
+                                    <input type="checkbox" /><label class="Action-Label">查看流程图</label></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr group="Operation" property="PermittedActions">
+                    <td></td>
+                    <td style="border-bottom: 1px solid #F0F0F0;">
+                        <label>流程操作</label></td>
+                    <td style="border-bottom: 1px solid #F0F0F0;" colspan="2">
+                        <table style="border-width: 0px; border-collapse: collapse; width: 100%">
+                            <tr>
+                                <td colspan="2" permitted-action="CancelIfUnfinished">
+                                    <input type="checkbox" /><label class="Action-Label">提交前可取消</label></td>
+                                <td colspan="2" permitted-action="CancelIfFinished">
+                                    <input type="checkbox" /><label class="Action-Label">提交后可取消</label></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: left" permitted-action="BatchProcessing">
+                                    <input type="checkbox" /><label class="Action-Label">批量处理</label></td>
+                                <td colspan="2" style="text-align: left" permitted-action="MobileProcessing">
+                                    <input type="checkbox" /><label class="Action-Label">移动办公</label></td>
+
+                            </tr>
+                            <tr>
+                                @*  <%--<td colspan="2" style="text-align: left" permitted-action="SMSApprove">
+                                    <input type="checkbox" />短信审批</td>--%>*@
+                                <td colspan="2" style="text-align: left" permitted-action="EmailNotification">
+                                    <input type="checkbox" /><label class="Action-Label">邮件通知</label></td>
+                                <td colspan="2" style="text-align: left" permitted-action="FinishInstance">
+                                    <input type="checkbox" /><label class="Action-Label">结束流程</label></td>
+                            </tr>
+                            @*<%-- <tr>
+                                <td colspan="2" style="text-align: left" permitted-action="SubmitToRejectedActivity">
+                                    <input type="checkbox" /><label class="Action-Label"><%=this.PortalResource.GetString("Designer_SumbittedActibity")%></label>
+                                </td>
+                                <td colspan="2" style="text-align: left"></td>
+                            </tr>--%>*@
+                        </table>
+                    </td>
+                </tr>
+                <tr group="Operation" property="PermittedActions">
+                    <td></td>
+                    <td style="border-bottom: 1px solid #F0F0F0;">驳回操作</td>
+                    <td style="border-bottom: 1px solid #F0F0F0;" colspan="2">
+                        <table style="border-width: 0px; width: 100%; border-collapse: collapse">
+                            @*      <%--  <tr>
+                                <td colspan="2" permitted-action="RejectToStart">
+                                    <input type="checkbox" /><label class="Action-Label"><%=this.PortalResource.GetString("Designer_RejectToStart")%></label></td>
+                                <td colspan="2" permitted-action="Reject">
+                                    <input type="checkbox" /><label class="Action-Label"><%=this.PortalResource.GetString("Designer_ToLastStep")%></label></td>
+                            </tr>--%>*@
+                            <tr>
+                                <td colspan="4" style="text-align: left" permitted-action="RejectNoSkip">
+                                    <input type="checkbox" /><label class="Action-Label">驳回不允许跳转</label>
+                                </td>
+                            </tr>
+
+                            @* <%--<tr>
+                                <td colspan="4" style="text-align: left" permitted-action="RejectToFixed">
+                                    <input type="checkbox" /><label class="Action-Label"><%=this.PortalResource.GetString("Designer_RejectToFixed")%></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" permitted-action="RejectToActivityCodes">
+                                    <select multiple></select></td>
+                            </tr>--%>*@
+                        </table>
+                    </td>
+                </tr>
+                <tr group="Operation" property="PermittedActions">
+                    <td></td>
+                    <td>协办操作</td>
+                    <td colspan="2">
+                        <table style="border-width: 0px; width: 100%; border-collapse: collapse">
+                            <tr>
+                                <td colspan="2" permitted-action="Assist">
+                                    <input type="checkbox" /><label class="Action-Label">协助</label></td>
+                                <td colspan="2" permitted-action="Consult">
+                                    <input type="checkbox" /><label class="Action-Label">征询意见</label></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" permitted-action="Circulate">
+                                    <input type="checkbox" /><label class="Action-Label">传阅</label></td>
+                                <td colspan="2" permitted-action="Recirculate">
+                                    <span style="display: none">
+                                        <input type="checkbox" checked="checked" /><label class="Action-Label">再传阅</label></span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr group="Assist" property="">
+                    <td group="Assist" property=""></td>
+                    <td colspan="3">协办
+                    </td>
+                </tr>
+                <tr group="Assist" property="Assistants">
+                    <td></td>
+                    <td>协助处理</td>
+                    <td colspan="2" style="width: 70%">
+                        <input type="text" class="FormulaEditable" formula-type="Participants" />
+                    </td>
+                </tr>
+                <tr group="Assist" property="Consultants">
+                    <td></td>
+                    <td>征询意见</td>
+                    <td colspan="2">
+                        <input type="text" class="FormulaEditable" formula-type="Participants" />
+                    </td>
+                </tr>
+                <tr group="Assist" property="Circulatees">
+                    <td></td>
+                    <td>传阅</td>
+                    <td colspan="2">
+                        <input type="text" class="FormulaEditable" formula-type="Participants" />
+                    </td>
+                </tr>
+                <tr group="ActivitySenior" property="">
+                    <td group="ActivitySenior" property=""></td>
+                    <td colspan="3">高级
+                    </td>
+                </tr>
+                <tr group="ActivitySenior" property="SubmittingValidation">
+                    <td></td>
+                    <td>提交检查</td>
+                    <td colspan="2" style="width: 70%">
+                        @*<asp:DropDownList ID="ddlSubmittingValidation" runat="server"></asp:DropDownList>*@
+                    </td>
+                </tr>
+                <tr group="ActivitySenior" property="LockPolicy">
+                    <td></td>
+                    <td>锁策略</td>
+                    <td colspan="2">
+                        @*<asp:DropDownList ID="ddlLockPolicy" runat="server"></asp:DropDownList>*@
+                    </td>
+                </tr>
+                <tr group="ActivitySenior" property="LockLevel">
+                    <td></td>
+                    <td>许可时间</td>
+                    <td colspan="2">
+                        <asp:dropdownlist id="ddlLockLevel" runat="server"></asp:dropdownlist>
+                    </td>
+                </tr>
+                <tr group="ActivitySenior" property="AllowedTime">
+                    <td></td>
+                    <td>超时策略</td>
+                    <td colspan="2">
+                        <input type="text" style="width: 82%" /><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="ActivitySenior" property="OvertimePolicy">
+                    <td></td>
+                    <td>选择组</td>
+                    <td colspan="2">
+                        @*<asp:DropDownList ID="ddlOvertimePolicy" runat="server"></asp:DropDownList>*@
+                    </td>
+                </tr>
+                <tr group="ActivitySenior" property="RequireGroup">
+                    <td></td>
+                    <td>选择组</td>
+                    <td colspan="2">
+                        <input type="checkbox" /><label class="Action-Label">提交时选择组身份</label>
+                    </td>
+                </tr>
+                <tr group="ActivitySenior" property="RequirePost">
+                    <td></td>
+                    <td>选择角色</td>
+                    <td colspan="2">
+                        <input type="checkbox" /><label class="Action-Label">提交时选择角色身份</label>
+                    </td>
+                </tr>
+                <tr group="ActivitySenior" property="PageScript">
+                    <td></td>
+                    <td>Javascript扩展</td>
+                    <td colspan="2">
+                        <textarea rows="8" class="RichText"></textarea>
+                    </td>
+                </tr>
+                <tr group="ActivityEvent" property="BeforeDisposal">
+                    <td group="ActivityEvent"></td>
+                    <td colspan="3">事件处理
+                    </td>
+                </tr>
+                <tr group="ActivityEvent" property="BeforeDisposal">
+                    <td></td>
+                    <td>活动激活前</td>
+                    <td colspan="2" style="width: 70%">
+                        <div class="BizEvents"></div>
+                    </td>
+                </tr>
+                <tr group="ActivityEvent" property="ActivatedDisposal">
+                    <td></td>
+                    <td>活动激活后</td>
+                    <td colspan="2">
+                        <div class="BizEvents"></div>
+                    </td>
+                </tr>
+                <tr group="ActivityEvent" property="AfterDisposal">
+                    <td></td>
+                    <td>活动完成后</td>
+                    <td colspan="2">
+                        <div class="BizEvents"></div>
+                    </td>
+                </tr>
+                <tr group="ActivityEvent" property="CancelledDisposal">
+                    <td></td>
+                    <td>活动取消</td>
+                    <td colspan="2">
+                        <div class="BizEvents"></div>
+                    </td>
+                </tr>
+                <tr group="ActivityEvent" property="AsyncEndedDisposal">
+                    <td></td>
+                    <td>任务异步结束</td>
+                    <td colspan="2">
+                        <div class="BizEvents"></div>
+                    </td>
+                </tr>
+                <tr group="ActivityEvent" property="ApprovedDisposal">
+                    <td></td>
+                    <td>任务提交后</td>
+                    <td colspan="2">
+                        <div class="BizEvents"></div>
+                    </td>
+                </tr>
+                <tr group="ActivityEvent" property="RejectedDisposal">
+                    <td></td>
+                    <td>任务驳回后</td>
+                    <td colspan="2">
+                        <div class="BizEvents"></div>
+                    </td>
+                </tr>
+                <tr group="ActivityEvent" property="ExpectedDuration">
+                    <td></td>
+                    <td>有效时间</td>
+                    <td colspan="2">
+                        <input type="text" style="width: 82%" /><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="ActivityEvent" property="OvertimeDisposal">
+                    <td></td>
+                    <td>有效时间事件</td>
+                    <td colspan="2">
+                        <div class="BizEvents"></div>
+                    </td>
+                </tr>
+                <tr group="ActivityPlan" property="" style="display: table-row; background-color: rgb(234, 229, 229); cursor: pointer;">
+                    <td group="ActivityPlan" property=""></td>
+                    <td colspan="3">计划
+                    </td>
+                </tr>
+                <tr group="ActivityPlan" property="InstanceProgress">
+                    <td></td>
+                    <td>流程进度</td>
+                    <td colspan="2" style="width: 70%">
+                        <input type="text" /></td>
+                </tr>
+                <tr group="ActivityPlan" property="PlanUsedTime">
+                    <td></td>
+                    <td>计划时长</td>
+                    <td colspan="2">
+                        <input type="text" class="TimeSpan" />
+                    </td>
+                </tr>
+                <tr group="ActivityPlan" property="Recurrence">
+                    <td></td>
+                    <td>重复次数</td>
+                    <td colspan="2">
+                        <input type="text" /></td>
+                </tr>
+                <tr group="Extend" property="">
+                    <td group="Extend" property=""></td>
+                    <td colspan="3">扩展属性
+                    </td>
+                </tr>
+                <tr group="Extend" property="WorkItemFlag">
+                    <td></td>
+                    <td>任务标记</td>
+                    <td colspan="2" style="width: 70%">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" /></td>
+                </tr>
+                <tr group="Extend" property="ShortText1">
+                    <td></td>
+                    <td>扩展属性1</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" /></td>
+                </tr>
+                <tr group="Extend" property="ShortText2">
+                    <td></td>
+                    <td>扩展属性2</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="Extend" property="ShortText3">
+                    <td></td>
+                    <td>扩展属性3</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="Extend" property="ShortText4">
+                    <td></td>
+                    <td>扩展属性4</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" /></td>
+                </tr>
+                <tr group="Extend" property="ShortText5">
+                    <td></td>
+                    <td>扩展属性5</td>
+                    <td colspan="2">
+                        <input type="text" maxlength="256" style="width: 82%" /><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="Extend" property="LongText6">
+                    <td></td>
+                    <td>扩展属性6</td>
+                    <td colspan="2">
+                        <textarea class="RichText" style="width: 82%"></textarea><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="Extend" property="LongText7">
+                    <td></td>
+                    <td>扩展属性7</td>
+                    <td colspan="2">
+                        <textarea class="RichText" style="width: 82%"></textarea><input type="button" value="..." class="BizData" />
+                    </td>
+                </tr>
+                <tr group="CustomCode" style="display: table-row; background-color: rgb(234, 229, 229); cursor: pointer;">
+                    <td group="CustomCode"></td>
+                    <td colspan="3">自定义代码
+                    </td>
+                </tr>
+                <tr group="CustomCode" property="Custom">
+                    <td></td>
+                    <td>是否启用</td>
+                    <td colspan="2" style="width: 70%">
+                        <input type="checkbox" />
+                        <input type="button" value="" id="btnActivityCode" />
+                    </td>
+                </tr>
+                <tr group="CustomCode" property="CustomCode">
+                    <td></td>
+                    <td>编码</td>
+                    <td colspan="2">
+                        <textarea style="width: 100%" rows="10" class="RichText"></textarea>
+                    </td>
+                </tr>
+                <tr group="Style">
+                    <td group="Style"></td>
+                    <td colspan="3" style="border: none">显示
+                    
+                    </td>
+                </tr>
+                <tr group="Style" property="FontSize">
+                    <td></td>
+                    <td>字体大小</td>
+                    <td colspan="2" style="width: 70%">
+                        <input type="number" min="6" max="60" />
+                    </td>
+                </tr>
+                <tr group="Style" property="FontColor">
+                    <td></td>
+                    <td>字体颜色</td>
+                    <td colspan="2">
+                        <input type="text" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

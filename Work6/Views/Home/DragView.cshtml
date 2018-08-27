@@ -1,0 +1,252 @@
+﻿@{
+    Layout = "~/Views/Layout/PageLayout.cshtml";
+    ViewBag.Title = "拖拽设计";
+}
+<script src="~/Contents/Script/Jquery.AddRow.js"></script>
+<style>
+    .ControlContainer {
+        border: 2px dashed #00F !important;
+    }
+</style>
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+
+    //最初开始拖动的节点触发
+    function dragBegin(ev) {
+        // console.dir($(ev.target).parent().attr("id"));
+        ev.dataTransfer.setData("Text", ev.target.id);
+        ev.dataTransfer.setData("ParentId", $(ev.target).parent().attr("id"));
+    }
+
+    //放下时触发
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("Text");
+        var ParentId = ev.dataTransfer.getData("ParentId");
+        if ($("#" + ParentId).hasClass("SourceDiv")) {
+            $("#" + ParentId).append($("#" + data).clone());
+        }
+        var moveTarget = $("#" + data);
+        $(moveTarget).attr("id", ParentId + "_" + data);
+        //ev.target.appendChild(document.getElementById(data));
+        $(ev.target).append($(moveTarget));
+        if ($("#" + ParentId).hasClass("ControlContainer")) {
+            $("#" + ParentId).removeClass("ControlContainer");
+        }
+
+    }
+
+    //当拖曳元素进入目标元素的时候触发的事件
+    function dragEnter(ev) {
+        if (!$(ev.target).hasClass("ControlContainer")) {
+            $(ev.target).addClass("ControlContainer");
+        }
+    }
+    //当拖拽完成后触发的事件
+    function dragEnd(ev) {
+        if ($(ev.target).parent().hasClass("ControlContainer")) {
+            $(ev.target).parent().removeClass("ControlContainer");
+        }
+
+        //var data = ev.dataTransfer.getData("Text");
+        //var ParentId = ev.dataTransfer.getData("ParentId");
+        //console.dir(ParentId);
+
+    }
+
+    //当被鼠标拖动的对象离开其容器范围内时触发此事件
+    function dragLeave(ev) {
+        if ($(ev.target).hasClass("ControlContainer")) {
+            $(ev.target).removeClass("ControlContainer");
+        }
+    }
+    //鼠标右键点击事件
+    function onContextMenu(ev) {
+        alert("添加配置");
+        ev.preventDefault();
+    }
+
+    function f_open() {
+        $.ligerDialog.open({
+            height: 266,
+            width: 500,
+            title: '插入行',
+            // url: '/Home/AddRowConfig',
+            target: $(".AddRowConfig"),
+            id: 'AddRowConfig_Dialog',
+            showMax: false,
+            showToggle: true,
+            isHidden: true,
+            showMin: false,
+            isResize: true,
+            slide: false,
+            data: {
+                name: "123"
+            },
+            //自定义参数
+            myDataName: "456",
+            //弹出框关闭前事件
+            onClose: function () {
+                // console.dir($("#" + $("#AddRowConfig").find("iframe").attr("id")));
+            },
+            buttons: [{
+                text: '确定',
+                data: [],
+                onclick: function (item, dialog) {
+                    //console.dir(dialog);
+                    //console.dir(item);
+                    //console.dir($(".container"));
+                    var currRows = parseInt($(".row:last").attr("Rows"));
+                    var column = parseInt($("#selColumns").val());
+                    var colWidthArr = [];
+                    for (var i = 0; i < column; i++) {
+                        colWidthArr.push(parseInt($("#colWidth_Text" + parseInt(i + 1)).val()));
+                    }
+                    console.dir(colWidthArr);
+                    $("#rowContainer").AddRow(currRows, column, colWidthArr);
+                    //console.dir(dialog);
+                    dialog.close();
+                }
+            }, {
+                text: '取消'
+                , onclick: function (item, dialog) {
+                    console.dir(item);
+                    dialog.close();
+                }
+            }]
+        });
+    }
+    $(function () {
+        //$.Init();
+        //$.Add();
+
+        $(document).on("change", "#selColumns", function () {
+            $("#divColumns").empty();
+            var rows = $(this).val();
+            var InputHtml = "";
+
+            switch (rows) {
+                case "1":
+                    InputHtml += '<input type="text" id="colWidth_Text1" class="NewColumn" value="12" maxlength="2" style="width: 20px;">';
+                    break;
+                case "2":
+                    InputHtml += '<input type="text" id="colWidth_Text1" class="NewColumn" value="6" maxlength="2" style="width: 20px;">';
+                    InputHtml += '<input type="text" id="colWidth_Text2" class="NewColumn" value="6" maxlength="2" style="width: 20px;">';
+                    break;
+                case "4":
+                    InputHtml += '<input type="text" id="colWidth_Text1" class="NewColumn" value="2" maxlength="2" style="width: 20px;">';
+                    InputHtml += '<input type="text" id="colWidth_Text2" class="NewColumn" value="4" maxlength="2" style="width: 20px;">';
+                    InputHtml += '<input type="text" id="colWidth_Text3" class="NewColumn" value="2" maxlength="2" style="width: 20px;">';
+                    InputHtml += '<input type="text" id="colWidth_Text4" class="NewColumn" value="4" maxlength="2" style="width: 20px;">';
+                    break;
+                case "6":
+                    InputHtml += '<input type="text" id="colWidth_Text1" class="NewColumn" value="2" maxlength="2" style="width: 20px;">';
+                    InputHtml += '<input type="text" id="colWidth_Text2" class="NewColumn" value="2" maxlength="2" style="width: 20px;">';
+                    InputHtml += '<input type="text" id="colWidth_Text3" class="NewColumn" value="2" maxlength="2" style="width: 20px;">';
+                    InputHtml += '<input type="text" id="colWidth_Text4" class="NewColumn" value="2" maxlength="2" style="width: 20px;">';
+                    InputHtml += '<input type="text" id="colWidth_Text5" class="NewColumn" value="2" maxlength="2" style="width: 20px;">';
+                    InputHtml += '<input type="text" id="colWidth_Text6" class="NewColumn" value="2" maxlength="2" style="width: 20px;">';
+                    break;
+                default:
+                    for (var i = 0; i < rows; i++) {
+                        var currRow = i + 1;
+                        InputHtml += '<input type="text" id="colWidth_Text' + currRow + '" class="NewColumn" value="1" maxlength="2" style="width: 20px;">';
+                    }
+                    break;
+
+            }
+
+            //console.dir(InputHtml);
+            $("#divColumns").append(InputHtml);
+        });
+    });
+</script>
+
+<div id="AddRowConfig" class="AddRowConfig" style="padding: 20px; display: none;">
+    <table style="width: 100%; height: 100%; border: 0px solid #cccccc;">
+        <tbody>
+            <tr>
+                <td style="width: 20%; height: 50px; font-weight: bold;">单元格数</td>
+                <td>
+                    <select id="selColumns" style="width: 120px">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4" selected="selected">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td style="width: 20%; height: 50px; font-weight: bold;">每列所占宽度</td>
+                <td id="divColumns">
+                    <input type="text" id="colWidth_Text1" class="NewColumn" value="2" maxlength="2" style="width: 20px;">
+                    <input type="text" id="colWidth_Text2" class="NewColumn" value="4" maxlength="2" style="width: 20px;">
+                    <input type="text" id="colWidth_Text3" class="NewColumn" value="2" maxlength="2" style="width: 20px;">
+                    <input type="text" id="colWidth_Text4" class="NewColumn" value="4" maxlength="2" style="width: 20px;">
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 20%; height: 50px;"></td>
+                <td>注：所有列之和必须等于12.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <input type="hidden" name="name" id="hiddenValue" value="" />
+    <div class="row">
+        <div class="col-md-3" style="height: 600px; background-color: #0094ff">
+            @*    <div class="row">
+                    <div class="col-md-12 SourceDiv" id="div1">
+                        <input id="drag1" type="text" name="name" value="" placeholder="可拖动" draggable="true" ondragstart="dragBegin(event)" />
+                    </div>
+                </div>*@
+            <div class="row">
+                <div class="col-md-12 SourceDiv" id="div_source_1">
+                    <span id="drag_input_1" draggable="true" ondragstart="dragBegin(event)" style="margin: 2px; border: 1px solid #e0e0e0; min-height: 30px; min-width: 100%; border-radius: 3px; display: inline-block; text-align: center; line-height: 28px; background-color: #fff; color: #B6ACAC;">拖拽输入框</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 SourceDiv" id="div_source_2">
+                    <span id="drag_select_1" draggable="true" ondragstart="dragBegin(event)" style="margin: 2px; border: 1px solid #e0e0e0; min-height: 30px; min-width: 100%; border-radius: 3px; display: inline-block; text-align: center; line-height: 28px; background-color: #fff; color: #B6ACAC;">拖拽下拉框</span>
+                </div>
+            </div>
+        </div>
+        <div id="rowContainer" class="col-md-7 col-md-offset-1" style="height: 600px; background-color: #fff">
+            <input type="button" onclick="f_open()" value="增加一行" />
+            <div class="row" style="min-height: 33px;">
+                <div id="div2" class="col-md-6" style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                </div>
+                <div id="div3" class="col-md-6" style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                </div>
+            </div>
+            <div class="row" style="min-height: 33px;">
+                <div id="div4" class="col-md-4" style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                </div>
+                <div id="div5" class="col-md-8" style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                </div>
+            </div>
+            <div class="row" rows="3" style="min-height: 33px;">
+                <div id="div6" class="col-md-2 " style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                </div>
+                <div id="div7" class="col-md-10" style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

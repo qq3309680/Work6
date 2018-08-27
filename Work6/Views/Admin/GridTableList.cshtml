@@ -1,0 +1,103 @@
+﻿@{
+    Layout = "~/Views/Layout/PageLayout.cshtml";
+    ViewBag.Title = "GridTableList";
+}
+
+
+
+    <script>
+   
+        $(function () {
+
+         
+
+            var Grid = $("#Grid").ligerGrid({
+                //title: '通用表单展示',
+                columns: [
+                { display: '主键', name: 'ObjectId', align: 'left', width: 120, hide: 'true' },
+                { display: '表单名称', name: 'GridName', minWidth: 60 },
+                { display: '表单代码', name: 'GridCode', minWidth: 60 },
+                { display: '创建人Id', name: 'CreaterObjectId', minWidth: 60 },
+                {
+                    display: '操作', isSort: false, minWidth: 60, render: function (rowdata, rowindex, value) {
+                        var h = "";
+                        h += "<a class='ConfigTable liger-button' ObjectId=" + rowdata.ObjectId + " GridName=" + rowdata.GridName + " GridCode=" + rowdata.GridCode + ">配置表格</a> ";
+                        h += "<a class='TableDate liger-button' ObjectId=" + rowdata.ObjectId + " GridName=" + rowdata.GridName + " GridCode=" + rowdata.GridCode + ">表格数据</a> ";
+                        return h;
+                    }
+                }
+
+                ],
+
+                url: "/Admin/GetGridData",
+                parms: { "TableName": "OT_TableList" },
+                //data: {},
+                checkbox: true,
+                usePager: false,
+                rownumbers: true,
+                herght: '100%',
+                toolbar: {
+                    items: [
+                  { text: '增加', click: addclick, icon: 'add' },
+                  { line: true },
+                  { text: '修改', click: editclick, icon: 'modify' },
+                  { line: true },
+                  { text: '删除', click: deleteclick, icon: 'delete' }
+                    ]
+                }
+
+            });
+            //配置表格点击事件
+            $(document).on("click", ".ConfigTable", function () {
+                var ObjectId = $(this).attr("ObjectId");
+                var GridName = $(this).attr("GridName");
+                var GridCode = $(this).attr("GridCode");
+                $.DialogOpen("ConfigGridPageDialog", "表格配置", '/Admin/ConfigGridPage?ObjectId=' + ObjectId + "&GridName=" + GridName + "&GridCode=" + GridCode, "", $(window).width()-80, $(window).height()-50);
+            });
+            //表格数据点击事件
+            $(document).on("click", ".TableDate", function () {
+                var ObjectId = $(this).attr("ObjectId");
+                var GridName = $(this).attr("GridName");
+                var GridCode = $(this).attr("GridCode");
+                $.DialogOpen("TableDateDialog", "表格数据", '/Admin/TableDataPage?ObjectId=' + ObjectId + "&GridName=" + GridName + "&GridCode=" + GridCode, { TableListObjectId: ObjectId }, $(window).width()-80, $(window).height()-50);
+            });
+            //console.dir(Grid);
+            //setTimeout(function () {
+            //    Grid.reload();
+            //}, 1000);
+            //添加表格清单
+            function addclick() {
+                $.DialogOpen("myDialog", "添加表格清单", "/Admin/DialogPage", "", 400, 200);
+            }
+            //编辑清单
+            function editclick() {
+                //获取选中行的数据
+                var selectRow = Grid.getSelectedRows();
+
+            }
+            //删除清单
+            function deleteclick() {
+                var selectRow = Grid.getSelectedRows();
+                $.AJAXGetData("POST", "/Admin/DeleteGridTable", selectRow, function (responseData) {
+                    console.dir(responseData);
+                    if (responseData.States) {
+                        alert(responseData.Message);
+                        $("#reloadBtn").click();
+                    } else {
+                        alert(responseData.ErrorMessage);
+                    }
+                });
+            }
+
+
+            $(document).on("click", "#reloadBtn", function () {
+                Grid.reload();
+            });
+        });
+    </script>
+
+    <div id="Grid">
+    </div>
+    <div id="reloadBtn" class="liger-button" style="display: none"></div>
+
+

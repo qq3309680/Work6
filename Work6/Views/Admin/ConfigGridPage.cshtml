@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Layout/PageLayout.cshtml";
+    ViewBag.Title = "配置表格";
+}
+
+
+<script>
+    $(function () {
+        var fields = [
+            { name: "ObjectId", type: "hidden" },
+            { label: "表格名称", name: "GridName", width: 170, labelWidth: 90, space: 40, newline: true, type: "text", group: "基础信息" },
+            { label: "表格编码 ", name: "GridCode", value: $("#ObjectId"), width: 170, labelWidth: 90, space: 40, newline: false, type: "text" }
+        ];
+        //创建表单结构 
+        form = $("#form").ligerForm({
+            inputWidth: 170, labelWidth: 90, space: 40,
+            validate: true,
+            fields: fields,
+            readonly: true
+        });
+        var formData = new Object();
+        formData.ObjectId = $("#ObjectId").val();
+        formData.GridName = $("#GridName").val();
+        formData.GridCode = $("#GridCode").val();
+        //设置默认值
+        form.setData(formData);
+        //菜单栏
+        $("#toolBar").ligerToolBar({
+            items: [
+                {
+                    text: '增加', click: function (item) {
+                        $.DialogOpen("ConfigGridPageDialog", "添加表格配置", '/Admin/AddGridTableConfig', { TableListObjectId: $("#ObjectId").val() }, 650, 400);
+                    }
+                },
+                { line: true },
+                { text: '修改' },
+                { line: true },
+                { text: '删除' }
+            ]
+        });
+        //配置表格
+        var ConfigGrid = $("#ConfigGrid").ligerGrid({
+            //title: '通用表单展示',
+            columns: [
+            { display: '主键', name: 'ObjectId', align: 'left', width: 120, hide: 'true' },
+            { display: '数据表清单主键', name: 'TableListObjectId', minWidth: 60, hide: 'true' },
+            { display: '列名', name: 'ColumnName', minWidth: 60 },
+            { display: '列编码', name: 'ColumnCode', minWidth: 60 },
+            { display: '类型', name: 'ColumnType', minWidth: 60 },
+            { display: '是否为空', name: 'IsNull', minWidth: 60 },
+            { display: '是否隐藏', name: 'IsHide', minWidth: 60 },
+            { display: '列宽', name: 'MinWidth', minWidth: 60 },
+            { display: '排序', name: 'Sort', minWidth: 60 },
+            { display: '创建人Id', name: 'CreaterObjectId', minWidth: 60 }
+            ],
+
+            url: "/Admin/GetGridData",
+            parms: { "TableName": "OT_TableConfig", "Params": "&TableListObjectId=" + $("#ObjectId").val() },
+            //data: {},
+            usePager: false,
+            rownumbers: true,
+            herght: '100%'
+
+        });
+        $(document).on("click", "#reloadBtn", function () {
+            $.ligerui.get("ConfigGrid").reload();
+        });
+    });
+</script>
+
+<input type="hidden" id="ObjectId" value="@Request.Params["ObjectId"]" />
+<input type="hidden" id="GridName" value="@Request.Params["GridName"]" />
+<input type="hidden" id="GridCode" value="@Request.Params["GridCode"]" />
+
+<div id="headPanel">
+    <div id="form">
+    </div>
+    <div id="toolBar">
+    </div>
+    <div id="ConfigGrid">
+    </div>
+</div>
+<div id="reloadBtn" class="liger-button" style="display: none"></div>
+

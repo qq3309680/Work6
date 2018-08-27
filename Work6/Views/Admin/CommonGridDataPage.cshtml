@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CommonGridDataPage</title>
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <script src="~/Contents/LigerUI/lib/jquery/jquery-1.9.0.min.js"></script>
+    <script src="~/Contents/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
+    <script src="~/Contents/underscore.js"></script>
+    <script>
+        $(function () {
+            $("#grid").ligerGrid({
+                title: '通用表单展示',
+                columns: [
+                { display: '主键', name: 'ObjectId', align: 'left', width: 120 },
+                { display: '父菜单', name: 'ParentObjectId', minWidth: 60 },
+                { display: '名称', name: 'DisplayName', width: 50, align: 'left' },
+                { display: '是否叶子节点', name: 'IsLeaf', minWidth: 140 },
+                { display: '链接', name: 'Href', minWidth: 140 },
+                { display: '排列顺序', name: 'Sort', minWidth: 140 },
+                { display: '等级', name: 'Level', minWidth: 140 },
+                { display: '是否根节点', name: 'IsRoot' }
+                ],
+
+                url: "/Admin/GetGridData",
+                parms: { "TableName": "AdminMenu" },
+                //data: {},
+                usePager: false,
+                rownumbers: true,
+                herght: '100%'
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <div id="grid">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,506 @@
+﻿.l-icon {
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    line-height:18px;
+}
+
+.l-icon-add {
+    background: url('icons/add.png') no-repeat center;
+}
+
+.l-icon-delete {
+    background: url('icons/delete.png') no-repeat center;
+}
+
+.l-icon-back {
+    background: url('icons/back.gif') no-repeat center;
+}
+
+.l-icon-bluebook {
+    background: url('icons/bluebook.gif') no-repeat center;
+}
+
+.l-icon-bookpen {
+    background: url('icons/bookpen.gif') no-repeat center;
+}
+
+.l-icon-coffee {
+    background: url('icons/coffee.gif') no-repeat center;
+}
+
+.l-icon-cut {
+    background: url('icons/cut.gif') no-repeat center;
+}
+
+.l-icon-discuss {
+    background: url('icons/discuss.gif') no-repeat center;
+}
+
+.l-icon-graywarn {
+    background: url('icons/graywarn.gif') no-repeat center;
+}
+
+.l-icon-greenwarn {
+    background: url('icons/greenwarn.gif') no-repeat center;
+}
+
+.l-icon-help {
+    background: url('icons/help.gif') no-repeat center;
+}
+
+.l-icon-home {
+    background: url('icons/home.gif') no-repeat center;
+}
+
+.l-icon-lock {
+    background: url('icons/lock.gif') no-repeat center;
+}
+
+.l-icon-logout {
+    background: url('icons/logout.gif') no-repeat center;
+}
+
+.l-icon-mailbox {
+    background: url('icons/mailbox.gif') no-repeat center;
+}
+
+.l-icon-memeber {
+    background: url('icons/memeber.gif') no-repeat center;
+}
+
+.l-icon-modify {
+    background: url('icons/modify.gif') no-repeat center;
+}
+
+.l-icon-msn {
+    background: url('icons/msn.gif') no-repeat center;
+}
+
+.l-icon-ok {
+    background: url('icons/ok.gif') no-repeat center;
+}
+
+.l-icon-outbox {
+    background: url('icons/outbox.gif') no-repeat center;
+}
+
+.l-icon-pager {
+    background: url('icons/pager.gif') no-repeat center;
+}
+
+.l-icon-photograph {
+    background: url('icons/photograph.gif') no-repeat center;
+}
+
+.l-icon-prev {
+    background: url('icons/prev.gif') no-repeat center;
+}
+
+.l-icon-print {
+    background: url('icons/print.gif') no-repeat center;
+}
+
+.l-icon-qq {
+    background: url('icons/qq.gif') no-repeat center;
+}
+
+.l-icon-refresh {
+    background: url('icons/refresh.gif') no-repeat center;
+}
+
+.l-icon-right {
+    background: url('icons/right.gif') no-repeat center;
+}
+
+.l-icon-run {
+    background: url('icons/right.gif') no-repeat center;
+}
+
+.l-icon-register {
+    background: url('icons/right.gif') no-repeat center;
+}
+
+.l-icon-save-disabled {
+    background: url('icons/save-disabled.gif') no-repeat center;
+}
+
+.l-icon-save {
+    background: url('icons/save.gif') no-repeat center;
+}
+
+.l-icon-search {
+    background: url('icons/search.gif') no-repeat center;
+}
+
+.l-icon-search2 {
+    background: url('icons/search2.gif') no-repeat center;
+}
+
+.l-icon-settings {
+    background: url('icons/settings.gif') no-repeat center;
+}
+
+.l-icon-true {
+    background: url('icons/true.gif') no-repeat center;
+}
+
+.l-icon-up {
+    background: url('icons/up.gif') no-repeat center;
+}
+
+.l-icon-down {
+    background: url('icons/down.gif') no-repeat center;
+}
+
+.l-icon-role {
+    background: url('icons/role.gif') no-repeat center;
+}
+
+.l-icon-config {
+    background: url('icons/config.gif') no-repeat center;
+}
+
+.l-icon-address {
+    background: url('icons/address.gif') no-repeat center;
+}
+
+.l-icon-process {
+    background: url('icons/process.gif') no-repeat center;
+}
+
+.l-icon-archives {
+    background: url('icons/archives.gif') no-repeat center;
+}
+
+.l-icon-attibutes {
+    background: url('icons/attibutes.gif') no-repeat center;
+}
+
+.l-icon-busy {
+    background: url('icons/busy.gif') no-repeat center;
+}
+
+.l-icon-calendar {
+    background: url('icons/calendar.gif') no-repeat center;
+}
+
+.l-icon-comment {
+    background: url('icons/comment.gif') no-repeat center;
+}
+
+.l-icon-plus {
+    background: url('icons/plus.gif') no-repeat center;
+}
+
+.l-icon-communication {
+    background: url('icons/communication.gif') no-repeat center;
+}
+
+.l-icon-customers {
+    background: url('icons/customers.gif') no-repeat center;
+}
+
+.l-icon-database {
+    background: url('icons/database.gif') no-repeat center;
+}
+
+.l-icon-myaccount {
+    background: url('icons/myaccount.gif') no-repeat center;
+}
+
+.l-icon-candle {
+    background: url('icons/candle.gif') no-repeat center;
+}
+
+.l-icon-edit {
+    background: url('icons/edit.gif') no-repeat center;
+}
+
+
+/*H3自定义图标*/
+/*流程设计器 Start*/
+.l-icon-AlignBottom {
+    background: url('icons/H3_icons/AlignBottom.gif') no-repeat center;
+}
+
+.l-icon-AlignCenter {
+    background: url('icons/H3_icons/AlignCenter.gif') no-repeat center;
+}
+
+.l-icon-AlignLeft {
+    background: url('icons/H3_icons/AlignLeft.gif') no-repeat center;
+}
+
+.l-icon-AlignMiddle {
+    background: url('icons/H3_icons/AlignMiddle.gif') no-repeat center;
+}
+
+.l-icon-AlignRight {
+    background: url('icons/H3_icons/AlignRight.gif') no-repeat center;
+}
+
+.l-icon-Publish {
+    background: url('icons/H3_icons/publish.png') no-repeat center;
+}
+
+.l-icon-SameHeight {
+    background: url('icons/H3_icons/SameHeight.gif') no-repeat center;
+}
+
+.l-icon-SameSize {
+    background: url('icons/H3_icons/SameSize.gif') no-repeat center;
+}
+
+.l-icon-SameWidth {
+    background: url('icons/H3_icons/SameWidth.gif') no-repeat center;
+}
+
+.l-icon-SaveImage {
+    background: url('icons/H3_icons/SaveImage.gif') no-repeat center;
+}
+
+.l-icon-Validate {
+    background: url('icons/H3_icons/Validate.png') no-repeat center;
+}
+
+.l-icon-HEqual {
+    background: url('icons/H3_icons/HEqual.gif') no-repeat center;
+}
+
+.l-icon-VEqual {
+    background: url('icons/H3_icons/VEqual.gif') no-repeat center;
+}
+
+.l-icon-Undo {
+    background: url('icons/H3_icons/Undo.png') no-repeat center;
+}
+
+.l-icon-Redo {
+    background: url('icons/H3_icons/Redo.png') no-repeat center;
+}
+/*流程设计器 End*/
+.l-icon-table {
+    background: url('icons/table.gif') no-repeat center;
+}
+
+.l-icon-preview {
+    background: url('icons/preview.gif') no-repeat center;
+}
+
+.l-icon-aspx {
+    background: url('icons/aspx.gif') no-repeat center;
+}
+
+.l-icon-return {
+    background: url('icons/return.gif') no-repeat center;
+}
+
+.l-icon-SyncAD {
+    background: url('icons/H3_icons/SyncAD.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-AddAllADUsers {
+    background: url('icons/H3_icons/AddAllADUsers.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-AddADUser {
+    background: url('icons/H3_icons/AddADUser.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-IB_Segment {
+    background: url('icons/H3_icons/IB_Segment.gif') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-IB_OU {
+    background: url('icons/H3_icons/IB_OU.gif') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-IB_SelectUser {
+    background: url('icons/H3_icons/IB_SelectUser.gif') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-IB_Man {
+    background: url('icons/H3_icons/IB_Man.gif') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-OrgPost {
+    background: url('icons/H3_icons/OrgPost.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-ReloadOrg {
+    background: url('icons/H3_icons/ReloadOrg.gif') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-Copy {
+    background: url('icons/H3_icons/Copy.gif') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-SysSetting_NotificationMethod {
+    background: url('icons/H3_icons/SysSetting_NotificationMethod.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-SysSetting_Org {
+    background: url('icons/H3_icons/SysSetting_Org.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-export {
+    background: url('icons/export.gif') no-repeat center;
+}
+
+.l-icon-import {
+    background: url('icons/import.gif') no-repeat center;
+}
+
+.l-icon-enable {
+    background: url('icons/enable.png') no-repeat center;
+}
+
+.l-icon-disable {
+    background: url('icons/disable.png') no-repeat center;
+}
+
+.l-icon-query {
+    background: url('icons/query.gif') no-repeat center;
+}
+
+.l-icon-SysSetting_Display {
+    background: url('icons/H3_icons/SysSetting_Display.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-SysSetting_Org {
+    background: url('icons/H3_icons/SysSetting_Org.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-SetAcl1 {
+    background: url('icons/H3_icons/SetAcl1.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-back {
+    background: url('icons/H3_icons/left.gif') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-forward {
+    background: url('icons/H3_icons/right.gif') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-doubleleft {
+    background: url('icons/H3_icons/doubleleft.gif') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-doubleright {
+    background: url('icons/H3_icons/doubleright.gif') no-repeat center;
+    background-size: 16px 16px;
+}
+
+
+.l-icon-BizFolder {
+    background: url('icons/H3_icons/BizFolder.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizWFFolder {
+    background: url('icons/H3_icons/BizWFFolder.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizObject {
+    background: url('icons/H3_icons/BizObject.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizService {
+    background: url('icons/H3_icons/BizService.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizWorkflowPackage {
+    background: url('icons/H3_icons/BizWorkflowPackage.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizWorkflow {
+    background: url('icons/H3_icons/BizWorkflow.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizSheet {
+    background: url('icons/H3_icons/BizSheet.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizSchemaView {
+    background: url('icons/H3_icons/BizSchemaView.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizQuery {
+    background: url('icons/H3_icons/BizQuery.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizListener {
+    background: url('icons/H3_icons/BizListener.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizScheduleInvoker {
+    background: url('icons/H3_icons/BizScheduleInvoker.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizSchemaAssociation {
+    background: url('icons/H3_icons/BizSchemaAssociation.jpg') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizServiceMethod {
+    background: url('icons/H3_icons/BizServiceMethod.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizLocker {
+    background: url('icons/H3_icons/BizLocker.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-BizUnLock {
+    background: url('icons/H3_icons/BizUnLock.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+
+.l-icon-ReportSource {
+    background: url('icons/H3_icons/ReportSource.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+.l-icon-AppNavigation {
+    background: url('icons/H3_icons/AppNavigation.png') no-repeat center;
+    background-size: 16px 16px;
+}
+
+
+
+.l-icon-ChartReport {
+    background: url('icons/H3_icons/ChartReport.png') no-repeat center;
+    background-size: 16px 16px;
+}

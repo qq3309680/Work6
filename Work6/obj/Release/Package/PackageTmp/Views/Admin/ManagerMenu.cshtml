@@ -1,0 +1,213 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>管理后台菜单</title>
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <script src="~/Contents/LigerUI/lib/jquery/jquery-1.9.0.min.js"></script>
+    <script src="~/Contents/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
+    <script src="~/Contents/underscore.js"></script>
+    <script>
+
+
+
+        //迭代获得该节点下的所有节点
+        function GetSonMenuByRoot(allElement, root) {
+            $.each(root, function (key, val) {
+                if (val.isleaf == false) {
+                    val.children = _.sortBy(_.filter(allElement, function (data) { return data.parentobjectid == val.objectid }), "sort");
+
+                    GetSonMenuByRoot(allElement, val.children);
+                }
+            });
+            return root;
+        }
+        $(function () {
+
+            var listAllMenu = JSON.parse($("#listAllMenu").val());
+            var GridRowsData = _.filter(listAllMenu, function (data) { return data.level == 1; });
+            GridRowsData = GetSonMenuByRoot(listAllMenu, GridRowsData);
+            var GridRows = new Object();
+            GridRows.Rows = GridRowsData;
+
+
+            $("#layout").ligerLayout({ centerWidth: "100%" });
+            //var TreeDeptData = {
+            //    Rows: [
+            //{
+            //    id: '01', name: "企划部", remark: "1989-01-12",
+            //    children: [
+            //    {
+            //        id: '0101', name: "企划分部一", remark: "企划分部一"
+            //    },
+            //    {
+            //        id: '0102', name: "企划分部二", remark: "企划分部二", children:
+            //          [
+            //              {
+            //                  id: '010201', name: "企划分部二 A组", remark: "企划分部二 A组", children:
+            //                  [
+            //                      { id: '01020101', name: "企划分部二 A组1分队", remark: "企划分部二 A组1分队" },
+            //                      { id: '01020102', name: "企划分部二 A组2分队", remark: "企划分部二 A组2分队" }
+            //                  ]
+            //              },
+            //              { id: '010202', name: "企划分部二 B组", remark: "企划分部二 B组" }
+            //          ]
+            //    },
+            //    { id: '0103', name: "企划分部三", remark: "企划分部三" }
+            //    ]
+            //},
+            //{ id: '02', name: "研发部", remark: "研发部" },
+            //{ id: '03', name: "产品部", remark: "产品部" }
+            //    ]
+            //};
+            //manager = $("#MenuGrid").ligerGrid({
+            //    columns: [
+            //        { display: '部门名', name: 'name', width: 250, align: 'left', editor: { type: 'text' } },
+            //    { display: '部门标示', name: 'id', width: 250, type: 'int', align: 'left' },
+
+            //    { display: '部门描述', name: 'remark', width: 250, align: 'left', editor: { type: 'text' } }
+            //    ], width: '100%', pageSizeOptions: [5, 10, 15, 20], height: '97%',
+            //    onSelectRow: function (rowdata, rowindex) {
+            //        $("#txtrowindex").val(rowindex);
+            //    },
+            //    data: TreeDeptData, alternatingRow: false, tree: { columnName: 'name' }, checkbox: false,
+            //    autoCheckChildren: false
+            //}
+            //);
+            manager = $("#MenuGrid").ligerGrid({
+                columns: [
+                    { display: '菜单名称', name: 'displayname', width: 250, align: 'left', editor: { type: 'text' } },
+
+                    {
+                        display: 'Url', name: 'href', width: 250, type: 'int', align: 'left', editor: { type: 'text' }
+                    },
+
+                    { display: '等级', name: 'level', width: 250, align: 'left', editor: { type: 'text' } },
+                    { display: '排序', name: 'sort', width: 50, align: 'left', editor: { type: 'text' } },
+                    {
+                        display: '操作', isSort: false, width: 320, render: function (rowdata, rowindex, value) {
+                            console.dir(rowdata);
+                            console.dir(value);
+                            var h = "";
+                            h += "<a href='javascript:appendToCurrentNodeDown();'>增加同级节点</a> ";
+                            h += "<a href='javascript:addRow(true);'>增加子节点</a> ";
+
+                            h += "<a href='javascript:beginEdit(" + rowindex + ")'>保存</a> ";
+                            h += "<a href='javascript:deleteRow(" + rowindex + ")'>删除</a> ";
+
+                            return h;
+                        }
+                    }
+                ],
+                width: '100%',
+                pageSizeOptions: [5, 10, 15, 20],
+                height: '97%',
+                onSelectRow: function (rowdata, rowindex) {
+                    $("#txtrowindex").val(rowindex);
+                },
+                data: GridRows,
+                alternatingRow: false,
+                tree: { columnName: 'displayname' },
+                checkbox: false,
+                autoCheckChildren: false,
+                enabledEdit: true
+            }
+      );
+
+        });
+        //获得选中行的值
+        function getSelected() {
+            var row = manager.getSelectedRow();
+            if (!row) { alert('请选择行'); return; }
+            alert(JSON.stringify(row));
+        }        function beginEdit(rowid) {
+            manager.beginEdit(rowid);
+        }
+        function cancelEdit(rowid) {
+            manager.cancelEdit(rowid);
+        }
+        function endEdit(rowid) {
+            manager.endEdit(rowid);
+        }
+
+        function deleteRow(rowid) {
+            if (confirm('确定删除?')) {
+                manager.deleteRow(rowid);
+            }
+        }        //parent:是否增加到当前节点下面
+        function addRow(withchildren) {
+            var selectRow = manager.getSelectedRow();
+            var parentRow = selectRow;
+
+            if (manager.isLeaf(parentRow)) {
+                upgrade();
+            }
+            var data = getNewData(withchildren);
+            manager.add(data, null, true, parentRow);
+        }        function getNewData(withchildren) {
+            var data = {
+                displayname: "菜单名称",
+                href: "菜单链接",
+                level: "菜单级别",
+                sort: "排序"
+            };
+            return data;
+        }        function appendToCurrentNodeDown() {
+            var selectRow = manager.getSelectedRow();
+            if (!selectRow) return;
+            var selectRowParnet = manager.getParent(selectRow);
+            var data = getNewData();
+            manager.add(data, selectRow, false, selectRowParnet);
+        }        //升级        function upgrade() {
+            var row = manager.getSelected();
+            manager.upgrade(row);
+        }
+    </script>
+    <style>
+        body {
+            font-size: 13px;
+        }
+
+        .description {
+            padding-bottom: 30px;
+            font-family: Verdana;
+        }
+
+            .description h3 {
+                color: #CC0000;
+                font-size: 16px;
+                margin: 0 30px 10px 0px;
+                padding: 45px 0 8px;
+                border-bottom: solid 1px #888;
+            }
+
+        #layout {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        td {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" id="listAllMenu" name="name" value="@ViewData["listAllMenu"].ToString()" />
+    <div id="layout">
+
+        <div position="center">
+            <a class="l-button" onclick="getSelected()">获取选中的值(选择行)</a>
+            <div id="MenuGrid">
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

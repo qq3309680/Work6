@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Views/Layout/PageLayout.cshtml";
+    ViewBag.Title = "定时任务";
+}
+<script>
+    $(function () {
+
+
+        //创建表单结构 
+        var taskForm = $("#form").ligerForm();
+        console.dir(taskForm);
+        //传来的定时任务数据
+        var TaskPlan = art.dialog.data('TaskPlan');
+        var TaskPlanType = art.dialog.data('TaskPlanType');
+        console.dir(TaskPlan);
+        var dataGrid = [
+     { id: 1, name: '启用' },
+     { id: 0, name: '禁止' }
+        ];
+        $("#radiolist").ligerRadioList({
+            data: dataGrid,
+            textField: 'name'
+        });
+        if (TaskPlan) {
+            taskForm.setData(TaskPlan);
+            $("input:radio").each(function () {
+
+                if (this.value == TaskPlan.State) {
+                    this.checked = true;
+                } else {
+                    this.checked = false;
+                }
+            });
+        }
+        //保存事件
+        $(document).on('click', "#save", function () {
+            var task = taskForm.getData();
+            console.dir(task);
+            $("input:radio").each(function () {
+                if (this.checked) {
+                    task.State = $(this).val();
+                }
+            });
+            var Obj = new Object();
+            Obj.model = task;
+            Obj.type = TaskPlanType;
+            $.AJAXGetDataAsync("post", "/BackGround/EditTaskPlan", Obj, function (data) {
+                if (data.States) {
+                    alert(data.Message);
+                    window.parent.location.reload();
+                    window.parent.$.ligerui.get("AddAdminMenuDialog").close();
+                } else {
+                    alert(data.ErrorMessage);
+                }
+            });
+
+        });
+
+
+    });
+</script>
+<link href="~/Contents/Css/formCss.css" rel="stylesheet" />
+
+<div class="ne-view" style="overflow: hidden">
+    <div id="mainpanel" style="width: 90%; margin: 0 auto; margin-top: 10px; margin-bottom: 20px; border: 1px solid #c8c8dd; background: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);">
+        <div id="form">
+            <input type="hidden" id="ObjectId" name="ObjectId" value="" />
+            @*<input type="hidden" id="Level" name="Level" value="" />*@
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="MissionCode">任务编码: </label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" value="" id="MissionCode" name="MissionCode" />
+                </div>
+                <div class="col-xs-2">
+                    <label for="JobClassName">Job类名: </label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" id="JobClassName" name="JobClassName" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="MissionName">任务名称: </label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" value="" id="MissionName" name="MissionName" />
+                </div>
+                <div class="col-xs-2">
+                    <label for="CronExplain">Cron表达式: </label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" value="" id="CronExplain" name="CronExplain" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="State">状态: </label>
+                </div>
+                <div class="col-xs-4">
+                    <div id="radiolist">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="toolbar" style="margin: 10px;"><a class="ne-btn ne-btn-blue" id="save">保存</a></div>
+    </div>
+
+</div>
+

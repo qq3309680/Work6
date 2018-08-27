@@ -1,0 +1,167 @@
+.tableList {
+    width: 100%;
+}
+
+    .tableList tr td {
+        padding-left: 0;
+        border: none;
+    }
+
+    .tableList .tableLeft {
+        width: 120px;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 20px;
+    }
+
+    .tableList .tableDesCol {
+        color: #999;
+        font-style: oblique;
+        max-width: 60%;
+        padding-left: 10px;
+    }
+
+    .tableList tr td span label {
+        margin-right: 20px;
+    }
+
+    .tableList input[type="text"], .tableList input[type="password"], .tableList select, .tableList input[type="file"] {
+        width: 250px;
+        margin: 1px;
+        border: 1px solid #a8a8a8;
+        height: 25px;
+        padding-left: 3px;
+        line-height: 25px;
+        border-radius: 2px;
+    }
+
+    .tableList select {
+        width: 256px;
+        height: 27px;
+    }
+
+    .tableList input[type="checkbox"] {
+        border: 1px solid #a8a8a8;
+    }
+
+    .tableList input[type="submit"] {
+        border: 1px solid #a8a8a8;
+        height: 25px;
+        line-height: 25px;
+    }
+
+    .tableList textarea {
+        border: 1px solid #a8a8a8;
+        width: 250px;
+        height: 100px;
+        margin: 1px;
+        padding-left: 3px;
+        border-radius: 2px;
+    }
+
+.tableNoCss {
+    margin-left: 0;
+}
+
+    .tableNoCss table, .tableNoCss tr, .tableNoCss tr td, .tableNoCss .tableLeft {
+        border: none;
+        padding-left: 0;
+    }
+
+    .tableNoCss .tableLeft {
+        width: auto;
+    }
+
+.tableList .l-text {
+    width: 250px;
+    height: 25px;
+    line-height: 25px;
+}
+
+    .tableList .l-text input {
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+.l-panel {
+    border: none;
+}
+
+    .l-panel table {
+        width: 100%;
+    }
+
+.l-grid-header {
+    background: #39f;
+    color: #fff;
+}
+
+.l-grid-row-cell, .l-grid-body-table div {
+    border: none;
+}
+
+.l-grid-header, .l-grid-header-table, .l-grid-header-table tr, .l-grid-header-table td {
+    line-height: 30px;
+}
+
+.l-grid-body-table, .l-grid-body-table tr, .l-grid-body-table td, .l-grid-row-cell-inner {
+    border: none;
+    border-bottom: 1px solid #d0d0d0;
+    height: 30px;
+    line-height: 30px;
+    word-break: break-all;
+}
+
+.l-grid-row-cell-checkbox span, .l-grid-hd-cell-checkbox .l-grid-hd-cell-inner div {
+    margin-top: 8px;
+}
+
+.l-grid-row-cell-inner {
+    text-align: left;
+}
+
+    .l-grid-row-cell-inner a {
+        text-align: center;
+    }
+
+.l-bar-message {
+    left: 0;
+    right: auto;
+}
+
+.l-bar-control {
+    float: right;
+}
+
+.mywork_list_table tr {
+    border: 1px solid #fff;
+    height: 30px;
+}
+
+    .mywork_list_table tr td {
+        padding-left: 5px;
+        text-align: left;
+    }
+
+.mywork_list_table .left25 {
+    background: #39f;
+    color: #fff;
+    text-align: center;
+}
+
+input:disabled {
+    border: 0 !important;
+    background-color: #FFF !important;
+    padding-left: 0 !important;
+}
+
+input:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(77,144,254,.6) !important;
+    border-color: #4d90fe !important;
+}
+
+textarea:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(77,144,254,.6) !important;
+    border-color: #4d90fe !important;
+}

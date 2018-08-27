@@ -1,0 +1,292 @@
+﻿@{
+    ViewBag.Title = "TaskPlan";
+    Layout = "~/Views/Layout/PageLayout.cshtml";
+}
+<script>
+    $(function () {
+        $("#panel").ligerLayout({ centerWidth: "100%" });
+        $("#grid").ligerGrid({
+            columns: [
+                { display: "ObjectId", name: "ObjectId", hide: true },
+                    { display: "MissionCode", name: "MissionCode", hide: true },
+
+                    { display: '任务名称', name: 'MissionName', width: '10%', align: 'center' },
+                    { display: 'Job类名', name: 'JobClassName', width: '10%', align: 'center' },
+                    { display: 'Cron表达式', name: 'CronExplain', width: '10%', align: 'center' },
+                    {
+                        display: '上次执行日期', name: 'SyncTime', width: '10%', align: 'center'
+                    },
+                    {
+                        display: '上次执行情况', name: 'IsAyncSuccess', width: '10%', align: 'left',
+                        render: function (row) {
+                            if (row.IsAyncSuccess == 1) {
+                                return "成功";
+                            } else {
+                                return "失败";
+
+                            }
+                        }
+                    },
+                    {
+                        display: '上次执行成功日期', name: 'SyncSuccessTime', width: '10%', align: 'center'
+                    },
+                    {
+                        display: '状态', name: 'State', width: '5%', align: 'center',
+                        render: function (row) {
+                            if (row.State == 1) {
+                                return "启用";
+                            } else {
+                                return "禁用";
+
+                            }
+                        }
+                    },
+                    { display: '执行服务器', name: 'HostName', width: '10%', align: 'center' },
+                    {
+                        display: '操作', width: '10%', name: '', render: function (row) {
+                            // console.dir(row);
+                            return "<a href='#' id='" + row.MissionCode + "'onclick='RowEditClick(this)'  rowid='" + row.__index + "'>编辑</a>&nbsp;"
+                                 + "<a href='#' id='" + row.MissionCode + "'onclick='RowStartClick(this)' rowid='" + row.__index + "'>启用</a>&nbsp;"
+                                 + "<a href='#' id='" + row.MissionCode + "'onclick='RowStopClick(this)' rowid='" + row.__index + "'>禁用</a>";
+                        }
+                    }
+            ],
+            width: '98%',
+            height: '94%',
+            url: '/BackGround/TaskConfigData',
+            alternatingRow: false,
+            checkbox: true,
+            autoCheckChildren: false,
+            enabledEdit: true,
+            rownumbers: true,
+            usePager: false,
+            alternatingRow: true
+        });
+    });
+    //启动定时任务
+    function RowStartClick(obj) {
+        var id = obj.id;
+        var MissionCodes = new Object();
+        MissionCodes.MissionCodes = id;
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            async: false,
+            contentType: "application/json;charset=utf-8",
+            url: "/BackGround/StartPlan",
+            timeout: 10000, //超时时间设置，单位毫秒
+            data: JSON.stringify(MissionCodes),
+            success: function (data) {
+                //console.dir(data);
+                var Result = data;
+                if (Result.States) {
+
+                    $.ligerDialog.success('启用成功', function (yes) {
+                        window.location.reload();
+                    });
+
+                } else {
+                    alert("启用失败.");
+                }
+            },
+            error: function (err, status) {
+                if (status == 'timeout') {//超时,status还有success,error等值的情况
+                    alert("超时");
+                } else if (status == 'error') {
+                    alert("服务器出错。")
+                }
+                console.dir(err);
+
+            }
+        });
+
+    }
+    //停止定时任务
+    function RowStopClick(obj) {
+        var id = obj.id;
+        var MissionCodes = new Object();
+        MissionCodes.MissionCodes = id;
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            async: false,
+            contentType: "application/json;charset=utf-8",
+            url: "/BackGround/StopPlan",
+            timeout: 10000, //超时时间设置，单位毫秒
+            data: JSON.stringify(MissionCodes),
+            success: function (data) {
+                //console.dir(data);
+                var Result = data;
+                if (Result.States) {
+          
+                    $.ligerDialog.success('禁用成功', function (yes) {
+                        window.location.reload();
+                    });
+
+                } else {
+                    alert("禁用失败.");
+                }
+            },
+            error: function (err, status) {
+                if (status == 'timeout') {//超时,status还有success,error等值的情况
+                    alert("超时");
+                } else if (status == 'error') {
+                    alert("服务器出错。")
+                }
+                console.dir(err);
+
+            }
+        });
+    }
+    //添加后台任务
+    function AddFun() {
+        var title = "创建后台任务计划";
+        art.dialog.data('TaskPlanType', "add");
+        $.ArtDialogOpen(title, "/BackGround/TaskPlanPage", $(window).width() - 300, $(window).height() - 100, function () {
+            //var ContractNo = art.dialog.data('I_BWP_E_biaoti'); // 读取B页面的数据
+            //var RedStyleIdArr = art.dialog.data('RedStyleIdArr'); // 读取B页面的数据
+            //alert(1);
+
+        });
+
+
+
+    }
+    //修改后台任务
+    function RowEditClick(obj) {
+        var title = "编辑后台任务计划";
+        //console.dir(obj.attributes.rowid.value);
+        //console.dir($.ligerui.get("grid").getRow(obj.attributes.rowid.value));
+        art.dialog.data('TaskPlan', $.ligerui.get("grid").getRow(obj.attributes.rowid.value));
+        art.dialog.data('TaskPlanType', "change");
+        $.ArtDialogOpen(title, "/BackGround/TaskPlanPage", $(window).width() - 300, $(window).height() - 100, function () {
+            //var ContractNo = art.dialog.data('I_BWP_E_biaoti'); // 读取B页面的数据
+            //var RedStyleIdArr = art.dialog.data('RedStyleIdArr'); // 读取B页面的数据
+            //alert(1);
+
+        });
+    }
+    //删除后台任务
+    function DeleteFun() {
+        var SelectItemName = "请选择要删除的后台任务计划";
+        var confirmDelete = "确定要删除此后台任务计划吗？";
+        var rows = $.ligerui.get("grid").getSelectedRows();
+        if (rows == null || rows.length == 0) {
+            alert(SelectItemName);
+            return false;
+        }
+
+        if (confirm(confirmDelete)) {
+            var ids = "";
+            for (var i = 0; i < rows.length; i++) {
+                ids = ids + rows[i].ObjectId + ",";
+            }
+            var MissionCodes = new Object();
+            MissionCodes.MissionCodes = ids.substr(0, ids.length - 1);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                async: false,
+                contentType: "application/json;charset=utf-8",
+                url: "/BackGround/DeleteTaskPlan",
+                timeout: 10000, //超时时间设置，单位毫秒
+                data: JSON.stringify(MissionCodes),
+                success: function (data) {
+                    console.dir(data);
+                    var Result = data;
+                    if (Result.States) {
+                        alert("删除成功.");
+                        window.location.reload();
+                    } else {
+                        alert("删除失败.");
+                    }
+                },
+                error: function (err, status) {
+                    if (status == 'timeout') {//超时,status还有success,error等值的情况
+                        alert("超时");
+                    } else if (status == 'error') {
+                        alert("服务器出错。")
+                    }
+                    console.dir(err);
+
+                }
+            });
+
+            return true;
+        }
+        return false;
+    }
+
+</script>
+<style>
+    .grid-panel {
+        width: 98%;
+        height: 94%;
+        border: 1px solid #c1c1c1;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        margin: 10px auto;
+        padding: 5px;
+    }
+
+    .grid-toobar {
+        width: 100%;
+        height: 30px;
+        background: #E0E0F2;
+        margin-bottom: 1px;
+    }
+
+    .toolbar-btn {
+        float: left;
+        cursor: pointer;
+    }
+
+        .toolbar-btn:hover {
+            text-decoration: none;
+            background: #E0EDFF;
+        }
+
+    .toolbar-btn-item {
+        width: 70px;
+        height: 30px;
+        text-align: center;
+    }
+
+        .toolbar-btn-item span {
+            line-height: 30px;
+        }
+
+    .toolbar-separator {
+        float: left;
+        height: 26px;
+        border-left: 1px solid #9AC6FF;
+        border-right: 1px solid white;
+        margin: 2px;
+    }
+</style>
+<div id="panel" style="overflow: hidden">
+    <div position="center">
+        <div class="grid-panel">
+            <div class="grid-toobar">
+                <a class="toolbar-btn" onclick="AddFun()">
+                    <div class="toolbar-btn-item">
+                        <div class="toolbar-btn-left">
+                        </div>
+                        <span>添加</span>
+                    </div>
+
+
+                </a>
+                <div class="toolbar-separator"></div>
+                <a class="toolbar-btn" onclick="DeleteFun()">
+                    <div class="toolbar-btn-item">
+                        <div class="toolbar-btn-left">
+                        </div>
+                        <span>删除</span>
+                    </div>
+                </a>
+            </div>
+            <div id="grid">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "~/Views/Layout/PageLayout.cshtml";
+    ViewBag.Title = "添加表格配置";
+}
+
+
+
+    <script>
+        $(function () {
+            //ligerUI弹出框
+            var dialog = frameElement.dialog;
+            //console.dir(dialog);
+
+            //设置表单默认值
+            $.ligerui.get('form').setData({
+                TableListObjectId: dialog.get("myData").TableListObjectId,
+                ColumnType: 'text',
+                IsNull: 'true',
+                IsHide: 'false',
+                MinWidth: '80',
+                Sort: '0'
+            });
+            $(document).on("click", "#submit", function () {
+                var form = liger.get("form");
+                var data = form.getData();
+                //alert(liger.toJSON(data));
+                $.AJAXGetData("POST", "/Admin/AddGridTableConfigData", data, function (responseData) {
+                    console.dir(responseData);
+                    if (responseData.States) {
+                        //alert(responseData.Message);
+                        $("#reloadBtn", window.parent.document).click();
+                        dialog.close();
+                    } else {
+                        alert(responseData.ErrorMessage);
+                    }
+                });
+            });
+           
+        });
+
+
+    </script>
+
+    <div id="form" class="liger-form">
+        <div class="fields">
+            <input data-type="hidden" data-label="ID" data-name="ObjectId" id="ObjectId" />
+            <input data-type="hidden" data-label="创建人" data-name="CreaterObjectId" data-id="CreaterObjectId" />
+            <input data-type="hidden" data-label="数据表清单主键" data-name="TableListObjectId" data-id="TableListObjectId" />
+            <input data-type="text" data-label="列名" data-name="ColumnName" />
+            <input data-type="text" data-label="列编码" data-name="ColumnCode" data-newline="false" />
+            <input data-type="text" data-label="类型" data-name="ColumnType" />
+            <input data-type="text" data-label="是否为空" data-name="IsNull" data-newline="false" />
+            <input data-type="text" data-label="是否隐藏" data-name="IsHide" />
+            <input data-type="text" data-label="列宽" data-name="MinWidth" data-newline="false" />
+            <input data-type="text" data-label="排序" data-name="Sort" />
+        </div>
+    </div>
+    <div class="liger-button" id="submit" data-width="150">保存</div>
+  

@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Layout/PageLayout.cshtml";
+    ViewBag.Title = "修改表格数据";
+}
+
+
+<script>
+    $(function () {
+        //ligerUI弹出框
+        var dialog = frameElement.dialog;
+        var fields = dialog.get("myData").fields;
+        var formData = dialog.get("myData").formData;
+
+        //创建表单结构 
+        $("#form").ligerForm({
+            inputWidth: 170, labelWidth: 90, space: 40,
+            fields: fields
+        });
+        liger.get("form").setData(formData);
+        $(document).on("click", "#submit", function () {
+            var form = liger.get("form");
+            var griddata = form.getData();
+            griddata.OrderDate = $.dateFormat(griddata.OrderDate, "yyyy-MM-dd HH:mm");
+            griddata.DeliveryDate = $.dateFormat(griddata.DeliveryDate, "yyyy-MM-dd HH:mm");
+            var OT_GridData = new Object();
+            OT_GridData.ObjectId = griddata.ObjectId;
+            OT_GridData.TableListObjectId = $("#TableListObjectId").val();
+            OT_GridData.RowValue = JSON.stringify(griddata);
+            //alert(liger.toJSON(data));
+            $.AJAXGetData("POST", "/Admin/EditGridData", OT_GridData, function (responseData) {
+                console.dir(responseData);
+                if (responseData.States) {
+                    alert(responseData.Message);
+                    $("#reloadBtn", window.parent.document).click();
+                    dialog.close();
+                } else {
+                    alert(responseData.ErrorMessage);
+                }
+            });
+        });
+    });
+
+</script>
+
+<div id="form">
+</div>
+<div class="liger-button" id="submit" data-width="150">保存</div>
+<input type="hidden" id="TableListObjectId" value="@Request.Params["TableListObjectId"]" />
+

@@ -1,0 +1,428 @@
+.PropertyTable {
+    width: 100%;
+    table-layout: fixed;
+    line-height: 27px;
+}
+
+select {
+    border: 1px solid silver;
+}
+
+.PropertyTable input[type=text], .PropertyTable input[type=number], .PropertyTable textarea, .PropertyTable select, .PropertyTable ul, .PropertyTable div.BizEvents, .PropertyTable .formula-display {
+    border: 1px solid transparent;
+}
+
+    .PropertyTable input[type=text]:hover, .PropertyTable input[type=number]:hover, .PropertyTable textarea:hover, .PropertyTable ul:hover, .PropertyTable div.BizEvents:hover, .PropertyTable .formula-display:hover {
+        border: 1px solid #CCC;
+    }
+
+ul.chosen-results, ul.chosen-results:hover {
+    border: none;
+}
+
+ul.display-list {
+    width: 100%;
+    min-height: 20px;
+}
+
+    ul.display-list:hover {
+        background-color: silver;
+    }
+
+.activity-event-td-title {
+    text-align: right;
+    width: 30%;
+}
+
+.activity-event-td-data {
+    text-indent: 8px;
+}
+
+    .activity-event-td-data select, #divBizActions select {
+        width: 144px;
+    }
+
+.user-selected {
+    font-weight: bold;
+}
+
+    .user-selected a {
+        color: black;
+    }
+
+#divBizEvents input[type=text], #divBizEvents select {
+    width: 165px;
+    min-height: 30px;
+}
+
+li {
+    line-height: 24px;
+}
+
+    li:hover {
+        cursor: pointer;
+    }
+
+ul {
+    min-height: 20px;
+}
+
+td[group] {
+    width: 10px;
+    height: 22px;
+    overflow: hidden;
+    background: url('/Contents/Css/ligerUI/Aqua/images/tree/tree.gif');
+}
+
+    td[group].Expanded {
+        background-position: -5px -88px;
+        position: relative;
+    }
+
+    td[group].Fold {
+        background-position: -5px 0;
+        position: relative;
+    }
+
+    td[group] + td[colspan='3'] {
+        height: 24px;
+        width: 95%;
+        padding-left: 3px;
+    }
+
+ul#ulDataDisposals li {
+    float: none;
+}
+
+td[permitted-action] {
+    text-align: left;
+    width: 50%;
+    line-height: 26px;
+}
+
+#divParticipat {
+    width: 600px;
+    height: 390px;
+    margin: 3px;
+    display: none;
+}
+
+    #divParticipat > table {
+        width: 560px;
+        border: none;
+    }
+
+.ul-biz-actions li {
+    float: none;
+}
+
+#divSubInstanceDataMaps {
+    width: 100%;
+    height: 390px;
+    /*margin: 3px;*/
+    display: none;
+}
+
+tr[group][property] > td:first-child:not([group]) {
+    background-color: #eae5e5;
+}
+
+tr[group][property] > td:nth-child(2) {
+    width: 70px;
+}
+
+tr[group] > td:nth-child(2):not([colspan='3']), tr[group] > td:nth-child(2):not([colspan='3']) + td {
+    border-bottom: 1px solid #F0F0F0;
+    border-right: 1px solid #F0F0F0;
+}
+
+tr[group][property] > td:last-child input[type=text], tr[group][property] > td:last-child input[type=number], tr[group][property] > td:last-child select:only-child, tr[group][property] > td:last-child ul:only-child, tr[group][property] > td:last-child div.BizEvents:only-child {
+    min-height: 22px;
+    padding-left: 3px;
+}
+
+    tr[group][property] > td:last-child input[type=text]:only-child, tr[group][property] > td:last-child input[type=number]:only-child, tr[group][property] > td:last-child select:only-child, tr[group][property] > td:last-child ul:only-child, tr[group][property] > td:last-child textarea:only-child, tr[group][property] > td:last-child div.BizEvents:only-child, tr[group][property] > td:last-child div.formula-display {
+        width: 94%;
+    }
+
+tr[group][property] > td:last-child div.formula-display {
+    min-height: 22px;
+}
+
+tr[group][property]:hover > td:last-child > input[type=text], tr[group][property]:hover > td:last-child > input[type=number], tr[group][property]:hover > td:last-child > select, tr[group][property]:hover > td:last-child > table, tr[group][property]:hover > td:last-child > textarea, tr[group][property]:hover > td:last-child > ul, tr[group][property]:hover > td:last-child > div.BizEvents:only-child, tr[group][property]:hover > td:last-child > div.formula-display {
+    border: 1px solid #CCC;
+    /*float: left;*/
+}
+
+tr[group] > td > table {
+    height: 22px;
+    border: 1px solid transparent;
+}
+
+    tr[group] > td > table:hover {
+        border: 1px solid #CCC;
+    }
+
+div.BizEvents {
+    min-height: 24px;
+    line-height: 24px;
+}
+
+.PropertyDataItem {
+    text-align: center;
+}
+
+input[type=button] {
+    background-color: transparent;
+    border: 1px solid #ccc;
+}
+
+    input[type=button]:hover {
+        border: 1px solid #acacac;
+    }
+
+tr[group][property] > td:last-child textarea:only-child {
+    width: 94%;
+}
+
+tr[group][property] > td:last-child textarea:not(:only-child) {
+    width: 84%;
+    float: left;
+}
+
+tr[group][property] > td:last-child > table {
+    width: 94%;
+}
+
+#dvUserTree {
+    height: 350px;
+    width: 100%;
+    float: left;
+    border: 0 solid #ccc;
+    overflow: auto;
+}
+
+ul.selected-user {
+    width: 100%;
+    height: 426px;
+    border: 1px solid silver;
+    overflow: auto;
+}
+
+    ul.selected-user li {
+        line-height: 24px;
+        padding-left: 5px;
+    }
+
+        ul.selected-user li:hover {
+            background-color: #eae5e5;
+        }
+
+#divTimeSpan {
+    display: none;
+}
+
+#divBizEvents {
+    width: 500px;
+    height: 390px;
+    margin: 3px;
+    display: none;
+    width: 600px;
+    overflow: hidden;
+    border: 1px solid #A3C0E8;
+}
+
+#divBizActions {
+    width: 460px;
+    height: 510px;
+    margin: 3px;
+    display: none;
+    overflow: auto;
+}
+
+#divDataItems {
+    border: 1px solid silver;
+    height: 430px;
+    width: 430px;
+    margin: 3px;
+    display: none;
+    overflow: auto;
+}
+
+#divRichText {
+    width: 500px;
+    height: 390px;
+    margin: 3px;
+    display: none;
+}
+
+    #divRichText textarea {
+        width: 566px;
+        height: 322px;
+        border: 1px solid silver;
+    }
+
+#ulSelectedSubInstanceDataMaps li {
+    float: none;
+}
+
+li.Selected {
+    background-color: silver;
+}
+
+.BatchColumn {
+    background-color: #b9dcee;
+}
+
+.WorkflowSelectorWapper {
+    width: 100%;
+    margin-right: 4px;
+}
+
+    .WorkflowSelectorWapper > input:first-child {
+        width: 100%;
+    }
+
+#divTimeSpan select, #divTimeSpan input[type='number'], #divTimeSpan input[type='text'] {
+    padding-left: 10px;
+    height: 30px;
+    border-width: 2px;
+}
+
+#divTimeSpan select, #divTimeSpan input[type='text'] {
+    width: 240px;
+}
+
+#divTimeSpan input[type='number'], #divTimeSpan input[type='text'] {
+    margin-right: 10px;
+}
+
+#divTimeSpan select {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#divTimeSpan input[type='number'] {
+    width: 64px;
+}
+
+#divTimeSpan input[type='text'] {
+    margin-right: 5px;
+}
+
+.activity-event-td-data > .formula-display {
+    min-height: 24px;
+    min-width: 164px;
+    max-width: 364px;
+    width: auto;
+    border: 1px solid #A8A8A8;
+    margin-left: 9px;
+    text-indent: 0px;
+    padding: 5px;
+    margin-bottom: 2px;
+}
+
+.activity-event-td-title.tableLeft {
+    padding-left: 0px;
+    text-align: left;
+    height: 40px;
+}
+
+.BizData {
+    line-height: 25px;
+}
+
+tr[group][property] .BizData {
+    display: none;
+}
+
+tr[group][property]:hover > td > .BizData {
+    display: inline-block;
+    margin-left: -1px;
+}
+
+.activity-event-td-data > .BizData {
+    margin-left: -2px;
+    border-color: #acacac !important;
+}
+
+#divEventDataMap .formula-display {
+    border: 1px solid #a8a8a8;
+    line-height: 24px;
+    min-height: 32px;
+    width: 95%;
+}
+
+.activity-event-div {
+    float: left;
+    width: 25px;
+    border: 1px solid;
+    margin-top: 1px;
+    height: 30px;
+    background-color: #CCC;
+}
+
+.activity-event-a {
+    margin-top: 10px;
+    margin-left: -7px;
+    cursor: pointer;
+}
+
+.activity-event-input {
+    float: left;
+}
+
+    .activity-event-input input[type=text] {
+        width: 372px !important;
+    }
+
+.FormulaEditable-div {
+    float: left;
+    width: 25px;
+    border: 1px solid #a5a5a5;
+    height: 34px;
+    background-color: #CCC;
+    cursor: pointer;
+}
+
+.formula-choose-div {
+    width: 372px !important;
+}
+
+/*数据权限样式 bgq*/
+tr[property='DataPermissions'] table {
+    table-layout: fixed;
+}
+
+    tr[property='DataPermissions'] table tr td {
+        border-bottom: 1px solid #F0F0F0;
+    }
+
+        tr[property='DataPermissions'] table tr td:first-child {
+            width: 0;
+        }
+
+        tr[property='DataPermissions'] table tr td:nth-child(2) {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 33.5%;
+            border-right: 1px solid #F0F0F0;
+        }
+
+.l-trigger, .l-trigger-hover, .l-trigger-pressed {
+    top: initial;
+    height: 22px;
+}
+
+.content-r-item {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.proertyPanel_Desc {
+    height: 50px;
+    width: 100%;
+    padding-left: 7px;
+    padding-top: 5px;
+    border-top: 1px solid #ccc;
+}

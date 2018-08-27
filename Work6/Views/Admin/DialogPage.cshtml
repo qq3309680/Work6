@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DialogPage</title>
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" />
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/Gray/css/all.css" rel="stylesheet" />
+    <script src="~/Contents/LigerUI/lib/jquery/jquery-1.9.0.min.js"></script>
+    <script src="~/Contents/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
+    <script src="~/Contents/underscore.js"></script>
+    <script src="~/Contents/ExtentScript.js"></script>
+    <script>
+        $(function () {
+            //ligerUI弹出框
+            var dialog = frameElement.dialog;
+            //console.dir(window.parent.Grid);
+            //alert(dialog.get("myDataName"));
+            //alert(dialog.get("data").name);
+            $(document).on("click", "#setValue", function () {
+                var form = liger.get("form");
+                console.dir(form);
+                form.setData({
+                    GridName: new Date(),
+                    GridCode: 'ADLY'
+                });
+            });
+            $(document).on("click", "#getValue", function () {
+                var form = liger.get("form");
+
+                var data = form.getData();
+
+                alert(liger.toJSON(data));
+            });
+            $(document).on("click", "#submit", function () {
+                var form = liger.get("form");
+                var data = form.getData();
+                //alert(liger.toJSON(data));
+                $.AJAXGetData("POST", "/Admin/AddGridTable", data, function (responseData) {
+                    console.dir(responseData);
+                    if (responseData.States) {
+                        alert(responseData.Message);
+                        $("#reloadBtn", window.parent.document).click();
+                        dialog.close();
+                    } else {
+                        alert(responseData.ErrorMessage);
+                    }
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div id="form" class="liger-form">
+        <div class="fields">
+            <input data-type="hidden" data-label="ID" data-name="ObjectId" id="ObjectId" />
+            <input data-type="hidden" data-label="创建人" data-name="CreaterObjectId" data-id="CreaterObjectId" />
+            <input data-type="text" data-label="表格名称" data-name="GridName" />
+            <input data-type="text" data-label="表格编码" data-name="GridCode" data-newline="false" />
+
+
+        </div>
+    </div>
+    <div class="liger-button" id="submit" data-width="150">保存</div>
+</body>
+</html>

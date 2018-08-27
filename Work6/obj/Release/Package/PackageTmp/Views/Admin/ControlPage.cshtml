@@ -1,0 +1,110 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>控制台</title>
+    <link href="~/Contents/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <script src="~/Contents/LigerUI/lib/jquery/jquery-1.9.0.min.js"></script>
+    <script src="~/Contents/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
+    <script src="~/Contents/underscore.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var data = JSON.parse($("#ControlPageModel").val()).menudata;
+            var result = _.sortBy(data, "sort");
+            //console.dir(result);
+            //console.dir(_.toArray(result));
+            data = _.toArray(result);
+            $("#tree1").ligerTree({
+                data: data,
+                idFieldName: 'id',
+                parentIDFieldName: 'pid',
+                onClick: function (target) {
+                    //console.dir(target);
+                    if (target.data.isleaf) {
+                        var tabid = target.data.tabid;
+                        //console.dir(tabid);
+                        //console.dir(navtab.isTabItemExist(tabid));
+                        if (navtab.isTabItemExist(tabid)) {
+                            navtab.selectTabItem(tabid);
+                        } else {
+                            navtab.addTabItem({ url: target.data.url, tabid: tabid });
+                            navtab.setHeight("100%");
+                            navtab.setTabItemTitle(tabid, target.data.text);
+                        }
+                    }
+                },
+                checkbox: false,
+                isExpand: function (target) {
+                    var data = target.data;
+                    if (data.id == "19e9116f-db4b-4c03-8fdd-8de46cf51c03") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+            }
+            );
+
+            $("#layout1").ligerLayout({ leftWidth: 200 });
+            $("#tab-layout1").ligerLayout();
+            navtab = $("#navtab1").ligerGetTabManager();
+            //$("#navtab1").ligerTab({
+            //    showSwitch: true
+            //});
+
+        });        function AddTab() {
+            alert(1);
+            //navtab.addTabItem({url:"/Home/Index"});
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            padding: 5px;
+            margin: 0;
+            padding-bottom: 15px;
+        }
+
+        #layout1 {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .l-page-top {
+            height: 80px;
+            background: #f8f8f8;
+            margin-bottom: 3px;
+        }
+
+        h4 {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" name="name" id="ControlPageModel" value="@ViewData["ControlPageModel"]" />
+    @*<div class="l-page-top">这个不是layout的一部分，作为单独的页面的头部</div>*@
+    <div id="layout1">
+        <div position="left">
+            <ul id="tree1"></ul>
+        </div>
+        <div position="center">
+            <div id="navtab1" style="overflow: hidden; border: 1px solid #D3D3d3;" class="liger-tab">
+                <div id="tab-layout1" tabid="home" title="我的主页" lselected="true">
+                    <div id="maingrid2" position="center" style="margin: 10px; height: 300px;">我的主页</div>
+                </div>
+                @*     <div id="tab-layout2" title="我的主页3" showclose="true">
+                    <div id="Div1" position="center" style="margin: 10px; height: 300px;">我的主页3</div>
+                </div>
+               *@
+            </div>
+        </div>
+    </div>
+</body>
+</html>

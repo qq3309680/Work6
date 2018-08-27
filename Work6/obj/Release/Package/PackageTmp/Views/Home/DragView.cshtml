@@ -1,0 +1,124 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DragView</title>
+    <link href="~/Contents/BootStrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Contents/BootStrap/js/jquery-1.11.1.min.js"></script>
+    <script src="~/Contents/BootStrap/js/bootstrap.min.js"></script>
+    <style>
+        .ControlContainer {
+            border: 2px dashed #00F !important;
+        }
+    </style>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+
+        //最初开始拖动的节点触发
+        function dragBegin(ev) {
+            // console.dir($(ev.target).parent().attr("id"));
+            ev.dataTransfer.setData("Text", ev.target.id);
+            ev.dataTransfer.setData("ParentId", $(ev.target).parent().attr("id"));
+        }
+
+        //放下时触发
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("Text");
+            var ParentId = ev.dataTransfer.getData("ParentId");
+            if ($("#" + ParentId).hasClass("SourceDiv")) {
+                $("#" + ParentId).append($("#" + data).clone());
+            }
+            var moveTarget = $("#" + data);
+            $(moveTarget).attr("id", ParentId + "_" + data);
+            //ev.target.appendChild(document.getElementById(data));
+            $(ev.target).append($(moveTarget));
+            if ($("#" + ParentId).hasClass("ControlContainer")) {
+                $("#" + ParentId).removeClass("ControlContainer");
+            }
+
+        }
+
+        //当拖曳元素进入目标元素的时候触发的事件
+        function dragEnter(ev) {
+            if (!$(ev.target).hasClass("ControlContainer")) {
+                $(ev.target).addClass("ControlContainer");
+            }
+        }
+        //当拖拽完成后触发的事件
+        function dragEnd(ev) {
+            if ($(ev.target).parent().hasClass("ControlContainer")) {
+                $(ev.target).parent().removeClass("ControlContainer");
+            }
+
+            //var data = ev.dataTransfer.getData("Text");
+            //var ParentId = ev.dataTransfer.getData("ParentId");
+            //console.dir(ParentId);
+
+        }
+
+        //当被鼠标拖动的对象离开其容器范围内时触发此事件
+        function dragLeave(ev) {
+            if ($(ev.target).hasClass("ControlContainer")) {
+                $(ev.target).removeClass("ControlContainer");
+            }
+        }
+        //鼠标右键点击事件
+        function onContextMenu(ev) {
+            alert("添加配置");
+            ev.preventDefault();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3" style="height: 600px; background-color: #0094ff">
+                @*    <div class="row">
+                    <div class="col-md-12 SourceDiv" id="div1">
+                        <input id="drag1" type="text" name="name" value="" placeholder="可拖动" draggable="true" ondragstart="dragBegin(event)" />
+                    </div>
+                </div>*@
+                <div class="row">
+                    <div class="col-md-12 SourceDiv" id="div_source_1">
+                        <span id="drag_input_1" draggable="true" ondragstart="dragBegin(event)" style="margin: 2px; border: 1px solid #e0e0e0; min-height: 30px; min-width: 100%; border-radius: 3px; display: inline-block; text-align: center; line-height: 28px; background-color: #fff; color: #B6ACAC;">拖拽输入框</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 SourceDiv" id="div_source_2">
+                        <span id="drag_select_1" draggable="true" ondragstart="dragBegin(event)" style="margin: 2px; border: 1px solid #e0e0e0; min-height: 30px; min-width: 100%; border-radius: 3px; display: inline-block; text-align: center; line-height: 28px; background-color: #fff; color: #B6ACAC;">拖拽下拉框</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 col-md-offset-1" style="height: 600px; background-color: #fff">
+                <div class="row" style="min-height: 33px;">
+                    <div id="div2" class="col-md-6" style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                    </div>
+                    <div id="div3" class="col-md-6" style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                    </div>
+                </div>
+                <div class="row" style="min-height: 33px;">
+                    <div id="div4" class="col-md-4" style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                    </div>
+                    <div id="div5" class="col-md-8" style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                    </div>
+                </div>
+                <div class="row" style="min-height: 33px;">
+                    <div id="div6" class="col-md-2 " style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                    </div>
+                    <div id="div7" class="col-md-10" style="padding-left: 11px; padding-right: 11px; border: 1px dashed #B6ACAC; vertical-align: middle; min-height: 33px;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragend="dragEnd(event)" ondragleave="dragLeave(event)" oncontextmenu="onContextMenu(event)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

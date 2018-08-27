@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Query</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <td>姓名</td>
+                <td>地址</td>
+                <td>邮箱</td>
+            </tr>
+            @foreach (var item in (List<Domain.Users>)ViewData["Query"])
+            {
+                <tr>
+                    <td>@item.UserName</td>
+                    <td>@item.Address</td>
+                    <td>@item.Email</td>
+                </tr>    
+            }
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+﻿body
+{
+    background-image: url(../images/doc_bg_office.gif);
+}
+center
+{
+    width: 100%;
+}
+
+.divContent
+{
+    background-image: url(../images/doc_bg_office.gif);
+   
+}
+.spanTitle
+{
+background-color: #F0F0F0;
+}
+.tdData
+{
+background-color: white;
+}
+.tableStyle
+{
+    background-color: white;
+}
+#divTopBars
+{
+    height: 30px;
+    border-bottom: 1px solid darkblue;
+    background: url(../images/tbmenuview_bg_office.gif) repeat;
+}
+#tbSheetActionPane10
+{
+    height: 23px;
+    text-align: right;
+}
+#tbTable
+{
+    background-color: white;
+    width: 80%;
+    margin: 0px auto;
+    border-collapse: collapse;
+    border-top: 1px solid white;
+    border-left: 1px solid black;
+    border-right: 5px groove #CCC;
+    border-bottom: 5px groove #CCC;
+}
+#divProcessTitle
+{
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 60px;
+    height: 60px;
+}
+
+
+#ulTab
+{
+    list-style-type: none;
+    width: 80%;
+    margin: 5px auto 0px;
+    padding: 0px;
+}
+#ulTab li
+{
+    margin: 0px;
+    width: 76px;
+    float: left;
+    height: 24px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 24px;
+}
+.curr {
+    background: url(../images/tab1.gif);
+    cursor: pointer;
+    display: block;
+    color: black;
+    width: 76px;
+    height: 24px;
+    float: left;
+    cursor: pointer;
+    display: block;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    line-height:24px;
+    margin-right: 5px;
+}
+.other {
+    background: url(../images/tab2.gif);
+    cursor: pointer;
+    display: block;
+    color: black;
+    width: 76px;
+    height: 24px;
+    float: left;
+    cursor: pointer;
+    display: block;
+    color: black;
+    text-align: center;
+    line-height:24px;
+    margin-right: 5px;
+}
+ 
+
+.tabContent
+{   
+    border:1px solid #c0c0c0;
+    width:98%;
+    margin: 10px auto 10px;
+    border-collapse: collapse;
+}
